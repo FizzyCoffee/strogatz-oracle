@@ -439,15 +439,17 @@ function drawSpiralGrid(ctx, w, h, cx, cy, scale, accentColor) {
 function drawSpiralAxes(ctx, w, h, cx, cy, color1, color2, mode) {
   ctx.font = '800 10px "Barlow Condensed", sans-serif';
 
-  // Horizontal axis
-  ctx.fillStyle = (color1 || '#C0FC04') + '50';
+  // Horizontal axis — deviation from equilibrium, not absolute love
+  ctx.fillStyle = (color1 || '#C0FC04') + '45';
   ctx.textAlign = 'right';
-  ctx.fillText('A\'S LOVE →', w - 6, cy - 9);
+  ctx.fillText('A\'S DEVIATION →', w - 6, cy - 9);
+  ctx.textAlign = 'left';
+  ctx.fillText('←', 6, cy - 9);
 
   // Vertical axis
-  ctx.fillStyle = (color2 || '#EA027E') + '50';
+  ctx.fillStyle = (color2 || '#EA027E') + '45';
   ctx.textAlign = 'left';
-  ctx.fillText('↑ B\'S LOVE', cx + 10, 15);
+  ctx.fillText('↑ B\'S DEVIATION', cx + 10, 15);
 
   // Narrative: what the dynamics MEAN for the relationship
   ctx.font = '700 9px "Barlow Condensed", sans-serif';
@@ -1008,7 +1010,7 @@ function runCompatibilityAnalysis() {
     `<p style="color:${dyn.color};font-weight:800;font-size:0.75rem;letter-spacing:0.15em;margin-bottom:0.5rem;">${dyn.name}</p>
      <p>${dyn.reading}</p>`;
 
-  // Shared simulation — both charts show the SAME trajectories
+  // Shared simulation — all charts use the SAME trajectories
   const sp1 = { a: a1, b: b1 };
   const sp2 = { a: a2, b: b2 };
   const sharedICs = [
@@ -1023,20 +1025,225 @@ function runCompatibilityAnalysis() {
     simulate(sp1, sp2, ic.x, ic.y, sharedDt, sharedSteps)
   );
 
-  // Draw charts — both use the same trajectories, time series highlights trajectory [0]
-  drawPhasePortrait(
-    document.getElementById('phase-canvas'),
-    sp1, sp2, sharedTrajectories,
-    dyn.color, userType.color, partnerType.color
-  );
-  drawTimeSeries(
-    document.getElementById('time-canvas'),
-    sharedTrajectories[0], sharedDt,
-    userType.color, partnerType.color
-  );
+  // Store in module-level state for click interactions
+  window._compatState = {
+    trajectories: sharedTrajectories,
+    ics: sharedICs,
+    dt: sharedDt,
+    sp1, sp2,
+    dynColor: dyn.color,
+    color1: userType.color,
+    color2: partnerType.color,
+    selectedIdx: 0
+  };
+
+  // Build trajectory selector buttons
+  const btnContainer = document.getElementById('traj-buttons');
+  btnContainer.innerHTML = sharedICs.map((ic, i) =>
+    `<button class="traj-btn ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="selectTrajectory(${i})">${i + 1}</button>`
+  ).join('');
+
+  // Draw all charts with trajectory 0 selected
+  selectTrajectory(0);
+
+  // Add click handler to phase canvas for trajectory selection
+  const phaseCanvas = document.getElementById('phase-canvas');
+  phaseCanvas.onclick = function(e) {
+    const rect = phaseCanvas.getBoundingClientRect();
+    const scaleX = phaseCanvas.width / rect.width;
+    const scaleY = phaseCanvas.height / rect.height;
+    const canvasX = (e.clientX - rect.left) * scaleX;
+    const canvasY = (e.clientY - rect.top) * scaleY;
+    const cx = phaseCanvas.width / 2;
+    const cy = phaseCanvas.height / 2;
+    const pxScale = phaseCanvas.width / 12;
+
+    // Find nearest trajectory head
+    let bestDist = Infinity;
+    let bestIdx = 0;
+    const st = window._compatState;
+    for (let t = 0; t < st.trajectories.length; t++) {
+      const traj = st.trajectories[t];
+      // Check against last few points of each trajectory
+      for (let k = Math.max(0, traj.length - 30); k < traj.length; k++) {
+        const sx = cx + traj[k].x * pxScale;
+        const sy = cy - traj[k].y * pxScale;
+        const d = Math.hypot(canvasX - sx, canvasY - sy);
+        if (d < bestDist) {
+          bestDist = d;
+          bestIdx = t;
+        }
+      }
+    }
+    if (bestDist < 40) {
+      selectTrajectory(bestIdx);
+    }
+  };
+  phaseCanvas.style.cursor = 'crosshair';
 
   // Scroll to results
   resultsEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
+
+// Select and highlight a trajectory — redraws time series + convergence
+function selectTrajectory(idx) {
+  const st = window._compatState;
+  if (!st) return;
+  st.selectedIdx = idx;
+
+  // Update button states
+  document.querySelectorAll('.traj-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+
+  // Redraw phase portrait with new highlight
+  drawPhasePortrait(
+    document.getElementById('phase-canvas'),
+    st.sp1, st.sp2, st.trajectories,
+    st.dynColor, st.color1, st.color2, idx
+  );
+
+  // Redraw time series for selected trajectory
+  drawTimeSeries(
+    document.getElementById('time-canvas'),
+    st.trajectories[idx], st.dt,
+    st.color1, st.color2
+  );
+
+  // Draw convergence curve
+  drawConvergenceCurve(
+    document.getElementById('convergence-canvas'),
+    st.trajectories, st.dt, idx,
+    st.dynColor, st.color1
+  );
+}
+
+// ===== LOVE CONVERGENCE CURVE =====
+// Plots distance-to-equilibrium over time for all trajectories,
+// highlighting the selected one. Shows whether love stabilizes, amplifies, or orbits.
+function drawConvergenceCurve(canvas, trajectories, dt, selectedIdx, dynColor, accentColor) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const padL = 50, padR = 16, padT = 20, padB = 28;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
+
+  ctx.fillStyle = '#07070e';
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#0a0a12';
+  ctx.fillRect(padL, padT, plotW, plotH);
+
+  // Compute distance-to-equilibrium for each trajectory
+  const distances = trajectories.map(traj =>
+    traj.map(pt => Math.sqrt(pt.x * pt.x + pt.y * pt.y))
+  );
+
+  // Find max distance for y-axis scale
+  let maxDist = 1;
+  for (const d of distances) {
+    for (const v of d) maxDist = Math.max(maxDist, v);
+  }
+  maxDist = Math.ceil(maxDist * 1.1);
+
+  const maxLen = trajectories[0].length;
+
+  // Grid
+  ctx.strokeStyle = 'rgba(42, 42, 58, 0.5)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + plotH * i / 4;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(w - padR, y);
+    ctx.stroke();
+  }
+
+  // Zero line (at equilibrium = distance 0 = deepest love)
+  const zeroY = padT + plotH;
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = 'rgba(192, 252, 4, 0.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padL, zeroY);
+  ctx.lineTo(w - padR, zeroY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font = '600 8px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = '#C0FC04';
+  ctx.textAlign = 'left';
+  ctx.fillText('♡ EQUILIBRIUM (DISTANCE = 0)', padL + 4, zeroY - 4);
+
+  // Draw all trajectories dimmed
+  for (let t = 0; t < distances.length; t++) {
+    if (t === selectedIdx) continue;
+    const d = distances[t];
+    ctx.beginPath();
+    for (let i = 0; i < d.length; i++) {
+      const px = padL + (i / (maxLen - 1)) * plotW;
+      const py = padT + plotH - (d[i] / maxDist) * plotH;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = (dynColor || '#C0FC04') + '25';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Draw selected trajectory bold
+  {
+    const d = distances[selectedIdx];
+    ctx.beginPath();
+    for (let i = 0; i < d.length; i++) {
+      const px = padL + (i / (maxLen - 1)) * plotW;
+      const py = padT + plotH - (d[i] / maxDist) * plotH;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = accentColor || '#C0FC04';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // End dot
+    const lastD = d[d.length - 1];
+    const endX = padL + plotW;
+    const endY = padT + plotH - (lastD / maxDist) * plotH;
+    ctx.fillStyle = accentColor || '#C0FC04';
+    ctx.fillRect(endX - 3, endY - 3, 6, 6);
+  }
+
+  // Labels
+  ctx.font = '800 11px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = accentColor || '#C0FC04';
+  ctx.textAlign = 'left';
+  ctx.fillText(`— TRAJECTORY ${selectedIdx + 1}`, padL + 4, padT + 13);
+  ctx.fillStyle = (dynColor || '#C0FC04') + '50';
+  ctx.fillText('— ALL OTHERS', padL + 140, padT + 13);
+
+  // IC annotation
+  const ic = trajectories[selectedIdx][0];
+  ctx.font = '400 8px "Share Tech Mono", monospace';
+  ctx.fillStyle = '#44445a';
+  ctx.textAlign = 'right';
+  ctx.fillText(`IC: (${ic.x.toFixed(1)}, ${ic.y.toFixed(1)})`, w - padR, padT + 13);
+
+  // Axes
+  ctx.font = '800 10px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = '#44445a';
+  ctx.textAlign = 'center';
+  ctx.fillText('TIME →', padL + plotW / 2, h - 5);
+  ctx.save();
+  ctx.translate(14, padT + plotH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('DISTANCE TO ♡', 0, 0);
+  ctx.restore();
+
+  // Y ticks
+  ctx.textAlign = 'right';
+  ctx.font = '600 9px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = '#44445a';
+  ctx.fillText(`${maxDist.toFixed(1)}`, padL - 5, padT + 8);
+  ctx.fillText('0', padL - 5, zeroY + 4);
 }
 
 // ===== STROGATZ ODE SIMULATION =====
@@ -1066,7 +1273,8 @@ function simulate(p1, p2, x0, y0, dt, steps) {
 }
 
 // ===== PHASE PORTRAIT =====
-function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color2) {
+function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color2, selectedIdx) {
+  if (selectedIdx === undefined) selectedIdx = 0;
   if (phaseAnimationId) cancelAnimationFrame(phaseAnimationId);
   const ctx = canvas.getContext('2d');
   const w = canvas.width;
@@ -1130,7 +1338,8 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
     const baseColor = dynColor || '#C0FC04';
 
     // Draw background trajectories first (dimmer)
-    for (let t = 1; t < trajectories.length; t++) {
+    for (let t = 0; t < trajectories.length; t++) {
+      if (t === selectedIdx) continue;
       const traj = trajectories[t];
       const segEnd = Math.min(drawUpTo, traj.length - 1);
       ctx.beginPath();
@@ -1145,9 +1354,9 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
       ctx.stroke();
     }
 
-    // Draw featured trajectory (t=0) — bold, matches time series
+    // Draw featured trajectory — bold, matches time series + convergence
     {
-      const traj = trajectories[0];
+      const traj = trajectories[selectedIdx];
       const segEnd = Math.min(drawUpTo, traj.length - 1);
       ctx.beginPath();
       for (let i = 0; i <= segEnd; i++) {
@@ -1177,7 +1386,8 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
     }
 
     // Head dots for other trajectories
-    for (let t = 1; t < trajectories.length; t++) {
+    for (let t = 0; t < trajectories.length; t++) {
+      if (t === selectedIdx) continue;
       const traj = trajectories[t];
       const segEnd = Math.min(drawUpTo, traj.length - 1);
       if (segEnd > 0 && segEnd < traj.length) {

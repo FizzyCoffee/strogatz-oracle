@@ -167,10 +167,15 @@
 
         <div class="compat-equation" id="compat-equation"></div>
 
+        <div class="traj-selector">
+          <span class="traj-selector-label">INITIAL CONDITION</span>
+          <div class="traj-buttons" id="traj-buttons"></div>
+          <span class="traj-selector-hint">Click a trajectory on the phase portrait or select here</span>
+        </div>
         <div class="compat-charts">
           <div class="chart-panel">
             <div class="chart-bar">
-              <span>PHASE PORTRAIT</span><span class="chart-bar-ja">位相空間</span>
+              <span>PHASE PORTRAIT</span><span class="chart-bar-ja">位相空間 — CLICK TO SELECT</span>
             </div>
             <canvas id="phase-canvas" width="440" height="440"></canvas>
           </div>
@@ -180,6 +185,12 @@
             </div>
             <canvas id="time-canvas" width="440" height="320"></canvas>
           </div>
+        </div>
+        <div class="chart-panel chart-panel--wide">
+          <div class="chart-bar">
+            <span>LOVE CONVERGENCE</span><span class="chart-bar-ja">愛の収束曲線 — DISTANCE TO ♡ OVER TIME</span>
+          </div>
+          <canvas id="convergence-canvas" width="880" height="240"></canvas>
         </div>
 
         <div class="compat-reading" id="compat-reading"></div>
