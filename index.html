@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STROGATZ ORACLE // 恋愛振動占い</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div class="scanlines"></div>
+
+  <!-- ===== LANDING ===== -->
+  <section id="landing" class="section active">
+    <div class="landing-content">
+      <div class="tag-row">
+        <span class="tag tag--lime">LOVE DYNAMICS</span>
+        <span class="tag tag--mag">PERSONALITY ANALYSIS</span>
+        <span class="tag tag--cyan">v3.7.2</span>
+      </div>
+      <div class="hero-title-block">
+        <div class="hero-kanji">恋愛振動占い</div>
+        <h1 class="hero-title" data-text="STROGATZ ORACLE">STROGATZ<br>ORACLE</h1>
+      </div>
+      <div class="hero-eq-bar">
+        <span class="eq-item">dx/dt = αx + βy</span>
+        <span class="eq-sep">/</span>
+        <span class="eq-item">dy/dt = γx + δy</span>
+        <span class="eq-sep">/</span>
+        <span class="eq-item mono-dim">COUPLED OSCILLATOR MODEL</span>
+      </div>
+      <div class="hero-spiral-section">
+        <canvas id="hero-spiral" width="560" height="560"></canvas>
+        <div class="spiral-caption">
+          <span class="spiral-caption-label">LOVE DYNAMICS PHASE PORTRAIT</span>
+          <span class="spiral-caption-sub">恋愛力学位相図 // STROGATZ MODEL</span>
+        </div>
+      </div>
+      <p class="hero-desc">
+        Based on Dr. Steven Strogatz's coupled oscillator theory, discover your
+        <strong>Love Oscillation Type</strong> and unlock the mathematical secrets
+        of romantic compatibility.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn--primary" onclick="startQuiz()">
+          BEGIN ANALYSIS<span class="btn-ja">解析開始</span>
+        </button>
+        <button class="btn btn--ghost" onclick="showSection('types-gallery')">
+          VIEW ALL 8 TYPES<span class="btn-ja">全タイプ一覧</span>
+        </button>
+      </div>
+      <div class="coord-label">STR-ORC :: 35.6762°N 139.6503°E :: 2026.04.14</div>
+    </div>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section id="quiz" class="section">
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <div class="quiz-top-row">
+          <span class="tag tag--mag">NEURAL SCAN</span>
+          <span class="tag tag--dim">心理波動解析</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="quiz-counter" id="quiz-counter">01/12</div>
+      </div>
+      <div class="quiz-body">
+        <p class="quiz-question" id="quiz-question"></p>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ANALYSIS LOADING ===== -->
+  <section id="analysis" class="section">
+    <div class="analysis-container">
+      <div class="analysis-ring">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="90" class="ring-bg"/>
+          <circle cx="100" cy="100" r="90" class="ring-progress"/>
+        </svg>
+        <div class="analysis-percent" id="analysis-percent">0%</div>
+      </div>
+      <div class="analysis-log" id="analysis-log"></div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS ===== -->
+  <section id="results" class="section">
+    <div class="results-container">
+      <div class="tag-row">
+        <span class="tag tag--mag">TYPE IDENTIFIED</span>
+        <span class="tag tag--dim">波動型判定</span>
+      </div>
+      <div class="result-type-block">
+        <div class="result-icon" id="result-icon"></div>
+        <h2 class="result-name" id="result-name"></h2>
+        <div class="result-code" id="result-code"></div>
+      </div>
+      <p class="result-tagline" id="result-tagline"></p>
+
+      <div class="result-params" id="result-params"></div>
+
+      <div class="result-desc-block" id="result-description"></div>
+
+      <div class="result-chart-section">
+        <div class="section-bar">
+          <span class="section-bar-label">YOUR LOVE SPIRAL</span>
+          <span class="section-bar-ja">恋愛螺旋</span>
+        </div>
+        <div class="result-spiral-wrap">
+          <canvas id="result-spiral" width="480" height="480"></canvas>
+        </div>
+      </div>
+      <div class="result-chart-section">
+        <div class="section-bar">
+          <span class="section-bar-label">TRAIT PROFILE</span>
+          <span class="section-bar-ja">特性プロファイル</span>
+        </div>
+        <canvas id="result-radar" width="340" height="340"></canvas>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn--primary" onclick="showCompatibility()">
+          CHECK COMPATIBILITY<span class="btn-ja">共振適合度チェック</span>
+        </button>
+        <button class="btn btn--ghost" onclick="showSection('types-gallery')">ALL TYPES</button>
+        <button class="btn btn--ghost" onclick="resetQuiz()">RETAKE QUIZ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPATIBILITY ===== -->
+  <section id="compatibility" class="section">
+    <div class="compat-container">
+      <div class="tag-row">
+        <span class="tag tag--lime">RESONANCE CHECK</span>
+        <span class="tag tag--dim">共振適合度</span>
+      </div>
+
+      <div class="compat-selector">
+        <div class="compat-you">
+          <span class="compat-role">YOUR TYPE</span>
+          <div class="compat-type-badge" id="compat-your-type"></div>
+        </div>
+        <div class="compat-vs">×</div>
+        <div class="compat-partner">
+          <span class="compat-role">PARTNER TYPE</span>
+          <div class="type-grid" id="partner-type-grid"></div>
+        </div>
+      </div>
+
+      <div class="compat-results" id="compat-results" style="display:none;">
+        <div class="compat-score-section">
+          <div class="compat-classification" id="compat-class"></div>
+          <div class="compat-score-ring">
+            <svg viewBox="0 0 180 180">
+              <circle cx="90" cy="90" r="78" class="score-ring-bg"/>
+              <circle cx="90" cy="90" r="78" class="score-ring-fill" id="score-ring-fill"/>
+            </svg>
+            <div class="compat-score-value" id="compat-score">0</div>
+          </div>
+        </div>
+
+        <div class="compat-equation" id="compat-equation"></div>
+
+        <div class="compat-charts">
+          <div class="chart-panel">
+            <div class="chart-bar">
+              <span>PHASE PORTRAIT</span><span class="chart-bar-ja">位相空間</span>
+            </div>
+            <canvas id="phase-canvas" width="440" height="440"></canvas>
+          </div>
+          <div class="chart-panel">
+            <div class="chart-bar">
+              <span>TIME SERIES</span><span class="chart-bar-ja">時系列</span>
+            </div>
+            <canvas id="time-canvas" width="440" height="320"></canvas>
+          </div>
+        </div>
+
+        <div class="compat-reading" id="compat-reading"></div>
+        <div class="compat-eigen" id="compat-eigen"></div>
+      </div>
+
+      <div class="compat-actions">
+        <button class="btn btn--ghost" onclick="showSection('results')">BACK TO RESULTS</button>
+        <button class="btn btn--ghost" onclick="resetQuiz()">RETAKE QUIZ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TYPES GALLERY ===== -->
+  <section id="types-gallery" class="section">
+    <div class="gallery-container">
+      <div class="tag-row">
+        <span class="tag tag--lime">ALL OSCILLATOR TYPES</span>
+        <span class="tag tag--dim">全振動型一覧</span>
+      </div>
+      <h2 class="gallery-title">THE 8 TYPES</h2>
+      <p class="gallery-intro">
+        The Strogatz Love Dynamics model classifies individuals into 8 oscillator types
+        based on three fundamental axes of romantic wave mechanics.
+      </p>
+      <div class="axes-legend">
+        <div class="axis-chip">
+          <span class="axis-chip-name">RESONANCE</span>
+          <span class="axis-chip-desc"><b>R</b>ESONANT / <b>D</b>AMPED</span>
+        </div>
+        <div class="axis-chip">
+          <span class="axis-chip-name">COUPLING</span>
+          <span class="axis-chip-desc"><b>S</b>YNC / <b>A</b>NTI</span>
+        </div>
+        <div class="axis-chip">
+          <span class="axis-chip-name">PHASE</span>
+          <span class="axis-chip-desc"><b>F</b>LASH / <b>W</b>AVE</span>
+        </div>
+      </div>
+      <div class="gallery-split">
+        <div class="gallery-spiral-panel">
+          <div class="spiral-preview-header">
+            <span class="spiral-preview-label" id="spiral-preview-label">HOVER A TYPE</span>
+            <span class="spiral-preview-sub" id="spiral-preview-sub">タイプにカーソルを合わせる</span>
+          </div>
+          <div class="spiral-preview-wrap">
+            <canvas id="gallery-spiral" width="480" height="480"></canvas>
+          </div>
+          <div class="spiral-preview-info" id="spiral-preview-info">
+            <div class="spiral-preview-placeholder">← Select a type to see its love dynamics spiral</div>
+          </div>
+        </div>
+        <div class="gallery-cards-panel">
+          <div class="types-grid" id="types-grid"></div>
+        </div>
+      </div>
+      <div class="gallery-actions">
+        <button class="btn btn--primary" onclick="startQuiz()">
+          TAKE THE QUIZ<span class="btn-ja">診断を受ける</span>
+        </button>
+        <button class="btn btn--ghost" onclick="showSection('landing')">HOME</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
