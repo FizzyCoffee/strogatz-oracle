@@ -1005,15 +1005,30 @@ function runCompatibilityAnalysis() {
     `<p style="color:${dyn.color};font-weight:800;font-size:0.75rem;letter-spacing:0.15em;margin-bottom:0.5rem;">${dyn.name}</p>
      <p>${dyn.reading}</p>`;
 
-  // Draw charts
+  // Shared simulation — both charts show the SAME trajectories
+  const sp1 = { a: a1, b: b1 };
+  const sp2 = { a: a2, b: b2 };
+  const sharedICs = [
+    { x: 2, y: 0.5 }, { x: -2, y: -0.5 },
+    { x: 0.5, y: 2 }, { x: -0.5, y: -2 },
+    { x: 1.5, y: -1.5 }, { x: -1.5, y: 1.5 },
+    { x: 2.5, y: 2 }, { x: -2.5, y: -2 }
+  ];
+  const sharedDt = 0.04;
+  const sharedSteps = 300;
+  const sharedTrajectories = sharedICs.map(ic =>
+    simulate(sp1, sp2, ic.x, ic.y, sharedDt, sharedSteps)
+  );
+
+  // Draw charts — both use the same trajectories, time series highlights trajectory [0]
   drawPhasePortrait(
     document.getElementById('phase-canvas'),
-    { a: a1, b: b1 }, { a: a2, b: b2 },
+    sp1, sp2, sharedTrajectories,
     dyn.color, userType.color, partnerType.color
   );
   drawTimeSeries(
     document.getElementById('time-canvas'),
-    { a: a1, b: b1 }, { a: a2, b: b2 },
+    sharedTrajectories[0], sharedDt,
     userType.color, partnerType.color
   );
 
@@ -1048,7 +1063,7 @@ function simulate(p1, p2, x0, y0, dt, steps) {
 }
 
 // ===== PHASE PORTRAIT =====
-function drawPhasePortrait(canvas, p1, p2, dynColor, color1, color2) {
+function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color2) {
   if (phaseAnimationId) cancelAnimationFrame(phaseAnimationId);
   const ctx = canvas.getContext('2d');
   const w = canvas.width;
@@ -1056,15 +1071,6 @@ function drawPhasePortrait(canvas, p1, p2, dynColor, color1, color2) {
   const cx = w / 2;
   const cy = h / 2;
   const scale = w / 12;
-
-  const ics = [
-    { x: 2, y: 0.5 }, { x: -2, y: -0.5 },
-    { x: 0.5, y: 2 }, { x: -0.5, y: -2 },
-    { x: 1.5, y: -1.5 }, { x: -1.5, y: 1.5 },
-    { x: 2.5, y: 2 }, { x: -2.5, y: -2 }
-  ];
-
-  const trajectories = ics.map(ic => simulate(p1, p2, ic.x, ic.y, 0.04, 300));
 
   let frame = 0;
   const maxFrames = 300;
@@ -1127,14 +1133,14 @@ function drawPhasePortrait(canvas, p1, p2, dynColor, color1, color2) {
       }
     }
 
-    // Trajectories — bold, flat, no glow
+    // Trajectories — first one highlighted (matches time series)
     const drawUpTo = Math.min(frame, maxFrames);
     const baseColor = dynColor || '#C0FC04';
 
-    for (let t = 0; t < trajectories.length; t++) {
+    // Draw background trajectories first (dimmer)
+    for (let t = 1; t < trajectories.length; t++) {
       const traj = trajectories[t];
       const segEnd = Math.min(drawUpTo, traj.length - 1);
-
       ctx.beginPath();
       for (let i = 0; i <= segEnd; i++) {
         const sx = cx + traj[i].x * scale;
@@ -1142,16 +1148,50 @@ function drawPhasePortrait(canvas, p1, p2, dynColor, color1, color2) {
         if (i === 0) ctx.moveTo(sx, sy);
         else ctx.lineTo(sx, sy);
       }
-      const alpha = t < 2 ? 'ff' : t < 4 ? '99' : '55';
-      ctx.strokeStyle = baseColor + alpha;
-      ctx.lineWidth = t < 2 ? 2.5 : 1.5;
+      ctx.strokeStyle = baseColor + '44';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+
+    // Draw featured trajectory (t=0) — bold, matches time series
+    {
+      const traj = trajectories[0];
+      const segEnd = Math.min(drawUpTo, traj.length - 1);
+      ctx.beginPath();
+      for (let i = 0; i <= segEnd; i++) {
+        const sx = cx + traj[i].x * scale;
+        const sy = cy - traj[i].y * scale;
+        if (i === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = baseColor;
+      ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Head dot
+      // Head dot for featured trajectory
       if (segEnd > 0 && segEnd < traj.length) {
         const pt = traj[segEnd];
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx + pt.x * scale - 4, cy - pt.y * scale - 4, 8, 8);
         ctx.fillStyle = baseColor;
         ctx.fillRect(cx + pt.x * scale - 3, cy - pt.y * scale - 3, 6, 6);
+      }
+
+      // Start marker for featured trajectory
+      const startPt = traj[0];
+      ctx.strokeStyle = '#ffffff60';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cx + startPt.x * scale - 5, cy - startPt.y * scale - 5, 10, 10);
+    }
+
+    // Head dots for other trajectories
+    for (let t = 1; t < trajectories.length; t++) {
+      const traj = trajectories[t];
+      const segEnd = Math.min(drawUpTo, traj.length - 1);
+      if (segEnd > 0 && segEnd < traj.length) {
+        const pt = traj[segEnd];
+        ctx.fillStyle = baseColor + '88';
+        ctx.fillRect(cx + pt.x * scale - 2, cy - pt.y * scale - 2, 4, 4);
       }
     }
 
@@ -1169,15 +1209,13 @@ function drawPhasePortrait(canvas, p1, p2, dynColor, color1, color2) {
 }
 
 // ===== TIME SERIES =====
-function drawTimeSeries(canvas, p1, p2, color1, color2) {
+function drawTimeSeries(canvas, traj, dt, color1, color2) {
   const ctx = canvas.getContext('2d');
   const w = canvas.width;
   const h = canvas.height;
   const padL = 44, padR = 10, padT = 24, padB = 30;
   const plotW = w - padL - padR;
   const plotH = h - padT - padB;
-
-  const traj = simulate(p1, p2, 1.5, -0.5, 0.05, 250);
 
   // Black bg
   ctx.fillStyle = '#07070e';
@@ -1204,14 +1242,21 @@ function drawTimeSeries(canvas, p1, p2, color1, color2) {
   }
   maxVal = Math.ceil(maxVal * 1.2);
 
-  // Zero line — bold
+  // Equilibrium line — this is the love equilibrium (0 = at balance, not zero love)
   const zeroY = padT + plotH / 2;
-  ctx.strokeStyle = 'rgba(192, 252, 4, 0.25)';
-  ctx.lineWidth = 2;
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = 'rgba(192, 252, 4, 0.3)';
+  ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(padL, zeroY);
   ctx.lineTo(w - padR, zeroY);
   ctx.stroke();
+  ctx.setLineDash([]);
+  // EQ label
+  ctx.font = '600 7px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = 'rgba(192, 252, 4, 0.4)';
+  ctx.textAlign = 'left';
+  ctx.fillText('♡ EQ', padL + 2, zeroY - 4);
 
   // x(t) — flat, bold
   ctx.beginPath();
@@ -1237,13 +1282,18 @@ function drawTimeSeries(canvas, p1, p2, color1, color2) {
   ctx.lineWidth = 3;
   ctx.stroke();
 
-  // Labels — bold
+  // Labels — bold, with IC annotation
   ctx.font = '800 12px "Barlow Condensed", sans-serif';
   ctx.fillStyle = color1 || '#C0FC04';
   ctx.textAlign = 'left';
   ctx.fillText('— YOU X(T)', padL + 6, padT + 14);
   ctx.fillStyle = color2 || '#EA027E';
   ctx.fillText('— THEM Y(T)', padL + 120, padT + 14);
+  // Show initial condition (matches highlighted trajectory in phase portrait)
+  ctx.font = '400 8px "Share Tech Mono", monospace';
+  ctx.fillStyle = '#44445a';
+  ctx.textAlign = 'right';
+  ctx.fillText(`IC: (${traj[0].x.toFixed(1)}, ${traj[0].y.toFixed(1)})`, w - padR, padT + 14);
 
   // Axis labels
   ctx.font = '800 10px "Barlow Condensed", sans-serif';
