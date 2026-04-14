@@ -461,6 +461,9 @@ function drawSpiralAxes(ctx, w, h, cx, cy, color1, color2, mode) {
   } else if (mode === 'center') {
     ctx.fillStyle = '#01FFFF';
     ctx.fillText('ORBITS ♡ — ETERNAL DANCE AROUND THE LOVE POINT', w / 2, h - 6);
+  } else if (mode === 'saddle') {
+    ctx.fillStyle = '#C0FC04';
+    ctx.fillText('KNIFE-EDGE AT ♡ — ONE PATH TO LOVE, ONE TO SEPARATION', w / 2, h - 6);
   }
 }
 
@@ -1075,15 +1078,21 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
   let frame = 0;
   const maxFrames = 300;
 
-  function drawFrame() {
-    // Black bg
-    ctx.fillStyle = '#07070e';
-    ctx.fillRect(0, 0, w, h);
+  // Determine dynamics mode for labels
+  const cTr = p1.a + p2.a;
+  const cDet = p1.a * p2.a - p1.b * p2.b;
+  const cDisc = cTr * cTr - 4 * cDet;
+  const cMode = cDet < 0 ? 'saddle' : Math.abs(cTr) < 0.05 ? 'center' : cDisc < 0 ? (cTr < 0 ? 'stable' : 'unstable') : (cTr < 0 ? 'stable' : 'unstable');
 
-    // Grid — hard, dim lines
-    ctx.strokeStyle = 'rgba(42, 42, 58, 0.5)';
-    ctx.lineWidth = 1;
+  function drawFrame() {
+    // Use shared grid with love equilibrium at center
+    drawSpiralGrid(ctx, w, h, cx, cy, scale, dynColor);
+
+    // Square grid overlay for compat (additional detail)
+    ctx.strokeStyle = 'rgba(42, 42, 58, 0.25)';
+    ctx.lineWidth = 0.5;
     for (let i = -5; i <= 5; i++) {
+      if (i === 0) continue; // skip center line (drawn by grid)
       ctx.beginPath();
       ctx.moveTo(cx + i * scale, 0);
       ctx.lineTo(cx + i * scale, h);
@@ -1093,23 +1102,6 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
       ctx.lineTo(w, cy + i * scale);
       ctx.stroke();
     }
-
-    // Axes — bold
-    ctx.strokeStyle = 'rgba(192, 252, 4, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(0, cy); ctx.lineTo(w, cy);
-    ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
-    ctx.stroke();
-
-    // Axis labels — bold condensed
-    ctx.font = '800 12px "Barlow Condensed", sans-serif';
-    ctx.fillStyle = color1 || '#C0FC04';
-    ctx.textAlign = 'right';
-    ctx.fillText('YOUR LOVE →', w - 8, cy - 10);
-    ctx.fillStyle = color2 || '#EA027E';
-    ctx.textAlign = 'left';
-    ctx.fillText('↑ THEIR LOVE', cx + 10, 16);
 
     // Vector field — flat arrows
     const step = 2;
@@ -1195,10 +1187,8 @@ function drawPhasePortrait(canvas, p1, p2, trajectories, dynColor, color1, color
       }
     }
 
-    // Origin — square marker
-    ctx.strokeStyle = '#ffffff80';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(cx - 4, cy - 4, 8, 8);
+    // Shared axes with equilibrium narrative
+    drawSpiralAxes(ctx, w, h, cx, cy, color1, color2, cMode);
 
     frame++;
     if (frame <= maxFrames + 30) {
