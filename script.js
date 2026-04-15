@@ -3,6 +3,270 @@
    Based on Strogatz coupled-oscillator model
    ============================================================ */
 
+// ===== I18N =====
+// Japanese is the default language. Toggle persists in localStorage.
+let currentLang = (typeof localStorage !== 'undefined' && localStorage.getItem('strogatz-lang')) || 'ja';
+
+function L(en, ja) {
+  return currentLang === 'ja' ? ja : en;
+}
+
+// Static UI strings for HTML elements. Keyed by a stable name.
+// Use data-i18n="key" on the element; data-i18n-html="key" if the value contains HTML.
+const I18N = {
+  en: {
+    'tag.loveDynamics.primary': 'LOVE DYNAMICS',
+    'tag.loveDynamics.sub': '恋愛力学',
+    'tag.personality.primary': 'PERSONALITY ANALYSIS',
+    'tag.personality.sub': '性格振動分析',
+    'tag.version': 'v3.7.2',
+    'hero.title.line1': 'STROGATZ',
+    'hero.title.line2': 'ORACLE',
+    'hero.kanji': '恋愛振動占い',
+    'hero.spiral.label': 'LOVE DYNAMICS PHASE PORTRAIT',
+    'hero.spiral.sub': '恋愛力学位相図 // STROGATZ MODEL',
+    'hero.desc': 'Based on Dr. Steven Strogatz\'s coupled oscillator theory, discover your <strong>Love Oscillation Type</strong> and unlock the mathematical secrets of romantic compatibility.',
+    'hero.btn.begin.primary': 'BEGIN ANALYSIS',
+    'hero.btn.begin.sub': '解析開始',
+    'hero.btn.types.primary': 'VIEW ALL 8 TYPES',
+    'hero.btn.types.sub': '全タイプ一覧',
+    'quiz.tag.primary': 'NEURAL SCAN',
+    'quiz.tag.sub': '心理波動解析',
+    'quiz.back': '← BACK',
+    'results.tag.primary': 'TYPE IDENTIFIED',
+    'results.tag.sub': '波動型判定',
+    'results.strengthsLabel': 'STRENGTHS',
+    'results.risksLabel': 'RISKS',
+    'results.spiral.label': 'YOUR LOVE SPIRAL',
+    'results.spiral.sub': '恋愛螺旋',
+    'results.trait.label': 'TRAIT PROFILE',
+    'results.trait.sub': '特性プロファイル',
+    'results.btn.compat.primary': 'CHECK COMPATIBILITY',
+    'results.btn.compat.sub': '共振適合度チェック',
+    'results.btn.allTypes': 'ALL TYPES',
+    'results.btn.retake': 'RETAKE QUIZ',
+    'param.resonance': 'RESONANCE',
+    'param.coupling': 'COUPLING',
+    'param.phase': 'PHASE',
+    'param.resonant': 'RESONANT ↑',
+    'param.damped': 'DAMPED ↓',
+    'param.sync': 'SYNC ⇄',
+    'param.anti': 'ANTI ⇆',
+    'param.flash': 'FLASH ⚡',
+    'param.wave': 'WAVE ∿',
+    'compat.tag.primary': 'RESONANCE CHECK',
+    'compat.tag.sub': '共振適合度',
+    'compat.yourType': 'YOUR TYPE',
+    'compat.partnerType': 'PARTNER TYPE',
+    'compat.ic.label': 'INITIAL CONDITION',
+    'compat.ic.hint': 'Click a trajectory on the phase portrait or select here',
+    'compat.phase.primary': 'PHASE PORTRAIT',
+    'compat.phase.sub': '位相空間 — CLICK TO SELECT',
+    'compat.time.primary': 'TIME SERIES',
+    'compat.time.sub': '時系列',
+    'compat.conv.primary': 'LOVE CONVERGENCE',
+    'compat.conv.sub': '愛の収束曲線 — DISTANCE TO ♡ OVER TIME',
+    'compat.btn.back': 'BACK TO RESULTS',
+    'compat.btn.retake': 'RETAKE QUIZ',
+    'gallery.tag.primary': 'ALL OSCILLATOR TYPES',
+    'gallery.tag.sub': '全振動型一覧',
+    'gallery.title': 'THE 8 TYPES',
+    'gallery.intro': 'The Strogatz Love Dynamics model classifies individuals into 8 oscillator types based on three fundamental axes of romantic wave mechanics.',
+    'gallery.axis.resonance.name': 'RESONANCE',
+    'gallery.axis.resonance.desc': '<b>R</b>ESONANT / <b>D</b>AMPED',
+    'gallery.axis.coupling.name': 'COUPLING',
+    'gallery.axis.coupling.desc': '<b>S</b>YNC / <b>A</b>NTI',
+    'gallery.axis.phase.name': 'PHASE',
+    'gallery.axis.phase.desc': '<b>F</b>LASH / <b>W</b>AVE',
+    'gallery.preview.label': 'HOVER A TYPE',
+    'gallery.preview.sub': 'タイプにカーソルを合わせる',
+    'gallery.preview.placeholder': '← Select a type to see its love dynamics spiral',
+    'gallery.btn.quiz.primary': 'TAKE THE QUIZ',
+    'gallery.btn.quiz.sub': '診断を受ける',
+    'gallery.btn.home': 'HOME',
+    'canvas.equilibrium': '♡ DEEP MUTUAL LOVE',
+    'canvas.equilibriumPoint': 'EQUILIBRIUM POINT',
+    'canvas.aDeviation': "A'S DEVIATION →",
+    'canvas.bDeviation': "↑ B'S DEVIATION",
+    'canvas.stableNarr': 'CONVERGES TO ♡ — LOVE FINDS ITS NATURAL RHYTHM',
+    'canvas.unstableNarr': 'DIVERGES FROM ♡ — PASSION AMPLIFIES WITHOUT LIMIT',
+    'canvas.centerNarr': 'ORBITS ♡ — ETERNAL DANCE AROUND THE LOVE POINT',
+    'canvas.saddleNarr': 'KNIFE-EDGE AT ♡ — ONE PATH TO LOVE, ONE TO SEPARATION',
+    'canvas.distanceNote': 'DISTANCE FROM CENTER = EMOTIONAL TURBULENCE',
+    'canvas.centerNote': 'CENTER = STABLE DEEP LOVE (NOT ZERO)',
+    'canvas.ts.you': '— YOU X(T)',
+    'canvas.ts.them': '— THEM Y(T)',
+    'canvas.ts.time': 'TIME →',
+    'canvas.ts.feeling': 'FEELING',
+    'canvas.conv.equilibrium': '♡ EQUILIBRIUM (DISTANCE = 0)',
+    'canvas.conv.eqShort': '♡ EQ',
+    'canvas.conv.yAxis': 'DISTANCE TO ♡',
+    'canvas.conv.trajectory': '— TRAJECTORY',
+    'canvas.conv.allOthers': '— ALL OTHERS',
+    'radar.intensity': 'INTENSITY',
+    'radar.stability': 'STABILITY',
+    'radar.empathy': 'EMPATHY',
+    'radar.independence': 'INDEPENDENCE',
+    'radar.speed': 'SPEED',
+    'radar.depth': 'DEPTH'
+  },
+  ja: {
+    'tag.loveDynamics.primary': '恋愛力学',
+    'tag.loveDynamics.sub': 'LOVE DYNAMICS',
+    'tag.personality.primary': '性格振動分析',
+    'tag.personality.sub': 'PERSONALITY ANALYSIS',
+    'tag.version': 'v3.7.2',
+    'hero.title.line1': 'STROGATZ',
+    'hero.title.line2': 'ORACLE',
+    'hero.kanji': '恋愛振動占い',
+    'hero.spiral.label': '恋愛力学位相図',
+    'hero.spiral.sub': 'LOVE DYNAMICS PHASE PORTRAIT // STROGATZ MODEL',
+    'hero.desc': 'スティーヴン・ストロガッツ博士の結合振動子理論に基づき、あなたの<strong>恋愛振動型</strong>を解き明かし、恋の相性に潜む数学的秘密を紐解きます。',
+    'hero.btn.begin.primary': '解析を開始',
+    'hero.btn.begin.sub': 'BEGIN ANALYSIS',
+    'hero.btn.types.primary': '全8タイプを見る',
+    'hero.btn.types.sub': 'VIEW ALL 8 TYPES',
+    'quiz.tag.primary': '心理波動スキャン',
+    'quiz.tag.sub': 'NEURAL SCAN',
+    'quiz.back': '← もどる',
+    'results.tag.primary': '振動型判定完了',
+    'results.tag.sub': 'TYPE IDENTIFIED',
+    'results.strengthsLabel': '強み',
+    'results.risksLabel': 'リスク',
+    'results.spiral.label': 'あなたの恋愛螺旋',
+    'results.spiral.sub': 'YOUR LOVE SPIRAL',
+    'results.trait.label': '特性プロファイル',
+    'results.trait.sub': 'TRAIT PROFILE',
+    'results.btn.compat.primary': '共振適合度チェック',
+    'results.btn.compat.sub': 'CHECK COMPATIBILITY',
+    'results.btn.allTypes': '全タイプ',
+    'results.btn.retake': 'もう一度診断',
+    'param.resonance': '共鳴',
+    'param.coupling': '結合',
+    'param.phase': '位相',
+    'param.resonant': '共鳴型 ↑',
+    'param.damped': '減衰型 ↓',
+    'param.sync': '同期 ⇄',
+    'param.anti': '反同期 ⇆',
+    'param.flash': '閃光 ⚡',
+    'param.wave': '波動 ∿',
+    'compat.tag.primary': '共振適合度チェック',
+    'compat.tag.sub': 'RESONANCE CHECK',
+    'compat.yourType': 'あなたのタイプ',
+    'compat.partnerType': '相手のタイプ',
+    'compat.ic.label': '初期条件',
+    'compat.ic.hint': '位相図の軌跡をクリックするか、ここから選択してください',
+    'compat.phase.primary': '位相空間',
+    'compat.phase.sub': 'PHASE PORTRAIT — クリックで選択',
+    'compat.time.primary': '時系列',
+    'compat.time.sub': 'TIME SERIES',
+    'compat.conv.primary': '愛の収束曲線',
+    'compat.conv.sub': 'LOVE CONVERGENCE — ♡までの距離の時間変化',
+    'compat.btn.back': '結果に戻る',
+    'compat.btn.retake': 'もう一度診断',
+    'gallery.tag.primary': '全振動型一覧',
+    'gallery.tag.sub': 'ALL OSCILLATOR TYPES',
+    'gallery.title': '全8タイプ',
+    'gallery.intro': 'ストロガッツ恋愛力学モデルは、恋愛波動力学の3つの基軸に基づき、あなたを8つの振動子タイプのいずれかに分類します。',
+    'gallery.axis.resonance.name': '共鳴',
+    'gallery.axis.resonance.desc': '<b>R</b>共鳴型 / <b>D</b>減衰型',
+    'gallery.axis.coupling.name': '結合',
+    'gallery.axis.coupling.desc': '<b>S</b>同期 / <b>A</b>反同期',
+    'gallery.axis.phase.name': '位相',
+    'gallery.axis.phase.desc': '<b>F</b>閃光 / <b>W</b>波動',
+    'gallery.preview.label': 'タイプを選択',
+    'gallery.preview.sub': 'HOVER A TYPE',
+    'gallery.preview.placeholder': '← タイプを選ぶと恋愛力学螺旋が表示されます',
+    'gallery.btn.quiz.primary': '診断を受ける',
+    'gallery.btn.quiz.sub': 'TAKE THE QUIZ',
+    'gallery.btn.home': 'ホーム',
+    'canvas.equilibrium': '♡ 相思相愛の深み',
+    'canvas.equilibriumPoint': '平衡点',
+    'canvas.aDeviation': 'Aの逸脱 →',
+    'canvas.bDeviation': '↑ Bの逸脱',
+    'canvas.stableNarr': '♡へ収束 — 愛が自然なリズムを見出す',
+    'canvas.unstableNarr': '♡から発散 — 情熱は限りなく増幅する',
+    'canvas.centerNarr': '♡を周回 — 愛の点をめぐる永遠の舞',
+    'canvas.saddleNarr': '♡の刃の上 — 一方は愛へ、他方は別離へ',
+    'canvas.distanceNote': '中心からの距離 = 感情の乱れ',
+    'canvas.centerNote': '中心 = 安定した深い愛（ゼロではない）',
+    'canvas.ts.you': '— あなた X(T)',
+    'canvas.ts.them': '— 相手 Y(T)',
+    'canvas.ts.time': '時間 →',
+    'canvas.ts.feeling': '感情',
+    'canvas.conv.equilibrium': '♡ 平衡（距離 = 0）',
+    'canvas.conv.eqShort': '♡ EQ',
+    'canvas.conv.yAxis': '♡までの距離',
+    'canvas.conv.trajectory': '— 軌跡',
+    'canvas.conv.allOthers': '— その他',
+    'radar.intensity': '激しさ',
+    'radar.stability': '安定性',
+    'radar.empathy': '共感',
+    'radar.independence': '独立',
+    'radar.speed': '速さ',
+    'radar.depth': '深さ'
+  }
+};
+
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+}
+
+// Apply current language to all [data-i18n] and [data-i18n-html] elements in the DOM.
+// Also updates document root lang attribute.
+function applyLang() {
+  document.documentElement.lang = currentLang;
+  document.body && document.body.setAttribute('data-lang', currentLang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    el.innerHTML = t(key);
+  });
+  // Update lang toggle button state
+  document.querySelectorAll('.lang-toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === currentLang);
+  });
+  // Re-render dynamic content that depends on lang
+  reRenderForLang();
+}
+
+// Called after a language switch — re-renders any JS-injected content currently visible.
+function reRenderForLang() {
+  // Quiz question (if quiz is active)
+  if (typeof QUESTIONS !== 'undefined' && document.getElementById('quiz') && document.getElementById('quiz').classList.contains('active')) {
+    if (typeof renderQuestion === 'function' && currentQuestion < QUESTIONS.length) renderQuestion();
+  }
+  // Results page
+  if (userType && document.getElementById('results')) {
+    renderResultText(userType);
+  }
+  // Compatibility page
+  if (userType && partnerType && document.getElementById('compat-results') &&
+      document.getElementById('compat-results').style.display !== 'none') {
+    renderCompatText();
+  }
+  // Gallery cards
+  if (document.getElementById('types-grid') && document.getElementById('types-grid').children.length > 0) {
+    renderTypesGallery();
+  }
+  // Gallery spiral preview
+  if (currentGalleryType) {
+    const gt = currentGalleryType;
+    currentGalleryType = null; // force re-render
+    drawGallerySpiral(gt);
+  }
+}
+
+function setLang(l) {
+  if (l !== 'ja' && l !== 'en') return;
+  currentLang = l;
+  try { localStorage.setItem('strogatz-lang', l); } catch (_) {}
+  applyLang();
+}
+
 // ===== TYPE DEFINITIONS =====
 const TYPES = {
   NOVA: {
@@ -11,13 +275,17 @@ const TYPES = {
     icon: '✦',
     color: '#FF0D1A',
     tagline: 'Explosive resonance — a supernova of passion',
+    jaTagline: '爆発的共鳴 — 情熱の超新星',
     jaName: '新星',
     axes: { resonance: 'R', coupling: 'S', phase: 'F' },
     params: { a: 0.8, b: 0.5 },
     traits: { intensity: 0.95, stability: 0.2, empathy: 0.8, independence: 0.3, speed: 0.9, depth: 0.5 },
     description: 'You are a NOVA — the most explosive oscillator type. Your feelings self-amplify rapidly, spiraling ever further from equilibrium. Each emotional cycle grows larger than the last — passion that cannot be contained. Your eigenvalue is strongly positive (λ > 0), meaning deviations from the love point amplify exponentially. In the phase portrait, your trajectory spirals outward: not less love, but love too intense to settle.',
+    jaDescription: 'あなたはNOVA — 最も爆発的な振動型。感情は急速に自己増幅し、平衡から螺旋を描いてどこまでも遠ざかる。サイクルごとに波は大きくなる — 抑えきれない情熱。固有値は強く正（λ > 0）で、恋愛平衡点からの逸脱は指数関数的に拡大する。位相図では、あなたの軌跡は外へと螺旋を描く：愛が少ないのではなく、静まり返ることのできない激情。',
     strengths: 'Passionate, magnetic, deeply present, emotionally generous',
-    risks: 'Burnout, overwhelming partners, intensity addiction'
+    jaStrengths: '情熱的、磁力的、深く今に生きる、感情的に寛大',
+    risks: 'Burnout, overwhelming partners, intensity addiction',
+    jaRisks: '燃え尽き、相手を圧倒、激情への依存'
   },
   PULSAR: {
     name: 'PULSAR',
@@ -25,13 +293,17 @@ const TYPES = {
     icon: '◉',
     color: '#3601FB',
     tagline: 'Deep rhythmic devotion — a steady cosmic heartbeat',
+    jaTagline: '深い律動の献身 — 宇宙の安定した鼓動',
     jaName: 'パルサー',
     axes: { resonance: 'R', coupling: 'S', phase: 'W' },
     params: { a: 0.6, b: 0.3 },
     traits: { intensity: 0.7, stability: 0.5, empathy: 0.85, independence: 0.3, speed: 0.3, depth: 0.95 },
     description: 'You are a PULSAR — a deep, rhythmic oscillator locked in eternal balance. Like a pulsar star emitting steady beams of energy, your love is a reliable signal that neither fades nor overwhelms. Your feelings orbit the love equilibrium in perfect rhythm — never fully settling, never losing control. Your bond is an endless heartbeat: constant, dependable, forever.',
+    jaDescription: 'あなたはPULSAR — 永遠の均衡に閉じ込められた深い律動振動子。安定した光線を放つパルサー星のように、あなたの愛は消えもせず圧倒もしない、信頼できる信号。感情は完璧なリズムで恋愛平衡点を周回する — 完全には落ち着かず、決して制御を失わない。あなたの絆は終わりなき鼓動：一定で、頼れて、永遠に。',
     strengths: 'Devoted, profound, emotionally rich, patient',
-    risks: 'Over-attachment, slow to recognize incompatibility, possessive depth'
+    jaStrengths: '献身的、深遠、感情的に豊か、忍耐強い',
+    risks: 'Over-attachment, slow to recognize incompatibility, possessive depth',
+    jaRisks: '過度の執着、相性の悪さに気づきにくい、深い所有欲'
   },
   QUASAR: {
     name: 'QUASAR',
@@ -39,13 +311,17 @@ const TYPES = {
     icon: '⊗',
     color: '#FF5500',
     tagline: 'Electric tension — thriving in opposition',
+    jaTagline: '電気的緊張 — 対立の中で輝く',
     jaName: '準星',
     axes: { resonance: 'R', coupling: 'A', phase: 'F' },
     params: { a: 0.8, b: -0.5 },
     traits: { intensity: 0.9, stability: 0.25, empathy: 0.4, independence: 0.95, speed: 0.85, depth: 0.6 },
     description: 'You are a QUASAR — the most dynamically charged type. Your feelings amplify internally but you instinctively push against your partner\'s energy, creating electric tension and thrilling opposition. Like a quasar\'s relativistic jets, you channel enormous energy in unexpected directions. You fall hard but you fight the fall, creating the most dramatic love stories.',
+    jaDescription: 'あなたはQUASAR — 最も力動的に帯電した型。感情は内側で増幅するが、本能的にパートナーのエネルギーに逆らい、電気的緊張とスリリングな対立を生む。クェーサーの相対論的ジェットのように、巨大なエネルギーを予期せぬ方向に放つ。深く落ちるが、その落下と闘う — 最もドラマチックな恋物語を紡ぐ。',
     strengths: 'Exciting, challenging, growth-provoking, never boring',
-    risks: 'Conflict addiction, emotional whiplash, push-pull exhaustion'
+    jaStrengths: '刺激的、挑戦的、成長を促す、退屈させない',
+    risks: 'Conflict addiction, emotional whiplash, push-pull exhaustion',
+    jaRisks: '対立への依存、感情の急変、押し引きによる消耗'
   },
   NEBULA: {
     name: 'NEBULA',
@@ -53,13 +329,17 @@ const TYPES = {
     icon: '☁',
     color: '#EA027E',
     tagline: 'Mysterious depths — a slow-burning cosmic enigma',
+    jaTagline: '神秘の深淵 — ゆっくり燃える宇宙の謎',
     jaName: '星雲',
     axes: { resonance: 'R', coupling: 'A', phase: 'W' },
     params: { a: 0.6, b: -0.3 },
     traits: { intensity: 0.6, stability: 0.4, empathy: 0.35, independence: 0.9, speed: 0.2, depth: 0.9 },
     description: 'You are a NEBULA — vast, mysterious, and locked in eternal opposition. Your feelings cycle through vast internal landscapes while you maintain a contrarian distance from your partner\'s direct influence. Like a nebula suspended between gravity and radiation, your love exists in permanent creative tension — never collapsing, never dispersing. You are the eternal contradiction that generates beauty.',
+    jaDescription: 'あなたはNEBULA — 広大で、神秘的、永遠の対立に留まる。感情は広大な内的景観を巡りながら、パートナーの直接的影響には逆張りの距離を保つ。重力と放射の間に漂う星雲のように、あなたの愛は永続する創造的緊張の中に存在する — 崩壊せず、散逸もしない。あなたは美を生む永遠の矛盾。',
     strengths: 'Mysterious, creatively inspiring, emotionally independent, transformative',
-    risks: 'Emotional unavailability, confusing partners, hidden intensity eruptions'
+    jaStrengths: '神秘的、創造的に触発する、感情的に独立、変革的',
+    risks: 'Emotional unavailability, confusing partners, hidden intensity eruptions',
+    jaRisks: '感情的に不在、相手を混乱させる、隠れた激情の噴出'
   },
   PHOTON: {
     name: 'PHOTON',
@@ -67,13 +347,17 @@ const TYPES = {
     icon: '◇',
     color: '#01FFFF',
     tagline: 'Quick empathic spark — brilliant but fleeting',
+    jaTagline: '素早き共感の閃光 — 輝けど儚い',
     jaName: '光子',
     axes: { resonance: 'D', coupling: 'S', phase: 'F' },
     params: { a: -0.6, b: 0.5 },
     traits: { intensity: 0.6, stability: 0.6, empathy: 0.95, independence: 0.4, speed: 0.95, depth: 0.3 },
     description: 'You are a PHOTON — fast, bright, and empathically responsive. Your feelings cycle in quick, balanced orbits around the love equilibrium — never fully settling but never fading either. Like a photon in perpetual motion, you need constant exchange to sustain the rhythm. You synchronize instantly with your partner\'s energy, maintaining an eternal dance of give and receive.',
+    jaDescription: 'あなたはPHOTON — 速く、明るく、共感的に応答する。感情は恋愛平衡点の周囲を素早く均衡のとれた軌道で巡る — 完全には落ち着かないが、消えもしない。永遠運動を続ける光子のように、リズムを保つには絶え間ない交流が必要。パートナーのエネルギーと瞬時に同期し、与えと受け取りの永遠の舞を続ける。',
     strengths: 'Empathic, responsive, adaptable, emotionally agile',
-    risks: 'Emotional dependency, losing self in partner, fickleness without input'
+    jaStrengths: '共感的、応答的、適応的、感情的に機敏',
+    risks: 'Emotional dependency, losing self in partner, fickleness without input',
+    jaRisks: '感情的依存、相手に自己を失う、刺激が無いと心変わり'
   },
   AURORA: {
     name: 'AURORA',
@@ -81,13 +365,17 @@ const TYPES = {
     icon: '≋',
     color: '#C0FC04',
     tagline: 'Gentle harmonizer — soft waves of steady light',
+    jaTagline: '穏やかな調和者 — 安らぎの光の波',
     jaName: 'オーロラ',
     axes: { resonance: 'D', coupling: 'S', phase: 'W' },
     params: { a: -0.8, b: 0.3 },
     traits: { intensity: 0.3, stability: 0.95, empathy: 0.8, independence: 0.5, speed: 0.2, depth: 0.7 },
     description: 'You are an AURORA — gentle, harmonious, and deeply stabilizing. Your strong self-damping (λ < 0) means every emotional deviation spirals back toward the love equilibrium. In the phase portrait, your trajectory converges inward: not shrinking love, but love finding its deepest, most stable form. Like the aurora borealis — born from turbulence, settling into luminous calm.',
+    jaDescription: 'あなたはAURORA — 穏やかで、調和的で、深く安定化する。強い自己減衰（λ < 0）により、感情の揺らぎはすべて恋愛平衡点へと螺旋を描いて戻る。位相図では軌跡は内へ収束する：愛が縮むのではなく、愛が最も深く安定した形を見出している。オーロラのように — 乱流から生まれ、輝く静けさへ落ち着く。',
     strengths: 'Stabilizing, calming, harmonious, emotionally mature',
-    risks: 'Emotional suppression, over-accommodation, lack of passion'
+    jaStrengths: '安定させる、落ち着かせる、調和的、感情的に成熟',
+    risks: 'Emotional suppression, over-accommodation, lack of passion',
+    jaRisks: '感情の抑圧、過度の迎合、情熱の欠如'
   },
   PHANTOM: {
     name: 'PHANTOM',
@@ -95,13 +383,17 @@ const TYPES = {
     icon: '△',
     color: '#3601FB',
     tagline: 'Elusive enigma — fast to retreat, impossible to forget',
+    jaTagline: '捉えどころなき謎 — 素早く退き、忘れ難い',
     jaName: 'ファントム',
     axes: { resonance: 'D', coupling: 'A', phase: 'F' },
     params: { a: -0.6, b: -0.5 },
     traits: { intensity: 0.4, stability: 0.5, empathy: 0.2, independence: 0.95, speed: 0.8, depth: 0.5 },
     description: 'You are a PHANTOM — the most elusive oscillator type. Your feelings cycle in a perpetual dance of retreat and return, orbiting the love equilibrium but never landing on it. Like a phantom particle that exists only in equations, you are felt more than seen. Your love operates in negative space — an eternal orbit of absence and presence that neither decays nor settles.',
+    jaDescription: 'あなたはPHANTOM — 最も捉えどころのない振動型。感情は撤退と帰還の永久の舞を続け、恋愛平衡点を周回するが決してそこに着地しない。方程式の中にしか存在しない幻の粒子のように、あなたは見られるよりも感じられる。あなたの愛は負の空間で動く — 減衰も収束もしない、不在と存在の永遠の軌道。',
     strengths: 'Intriguing, self-sufficient, creates longing, emotionally self-aware',
-    risks: 'Emotional avoidance, partner frustration, isolation'
+    jaStrengths: '興味を引く、自己完結、憧れを生む、感情的に自覚的',
+    risks: 'Emotional avoidance, partner frustration, isolation',
+    jaRisks: '感情の回避、相手の苛立ち、孤立'
   },
   SINGULARITY: {
     name: 'SINGULARITY',
@@ -109,13 +401,17 @@ const TYPES = {
     icon: '◎',
     color: '#EA027E',
     tagline: 'Gravitational mystery — a slow deep pull into the unknown',
+    jaTagline: '重力の謎 — 未知へのゆっくりとした深い引力',
     jaName: '特異点',
     axes: { resonance: 'D', coupling: 'A', phase: 'W' },
     params: { a: -0.8, b: -0.3 },
     traits: { intensity: 0.3, stability: 0.7, empathy: 0.15, independence: 1.0, speed: 0.15, depth: 1.0 },
     description: 'You are a SINGULARITY — the deepest, most gravitational type. Your feelings dampen strongly and you oppose external emotional influence, yet like a black hole, your sheer depth creates an inexorable pull. Love near a Singularity is a one-way trip: slow, inevitable, and world-altering. Those who get close enough discover infinite depth beyond the event horizon.',
+    jaDescription: 'あなたはSINGULARITY — 最も深く、最も重力的な型。感情は強く減衰し、外からの感情的影響に抗う — が、ブラックホールのように、純然たる深さが抗えぬ引力を生む。特異点の近くの愛は一方通行：ゆっくりで、不可避で、世界を変える。十分近づいた者は、事象の地平線の向こうに無限の深みを見出す。',
     strengths: 'Profoundly deep, utterly unique, transformative, self-contained',
-    risks: 'Extreme emotional unavailability, intimidating depth, absolute isolation'
+    jaStrengths: '深遠、比類なき独自性、変革的、自己完結',
+    risks: 'Extreme emotional unavailability, intimidating depth, absolute isolation',
+    jaRisks: '極端な感情的不在、威圧する深さ、絶対的孤立'
   }
 };
 
@@ -125,117 +421,145 @@ const QUESTIONS = [
   {
     axis: 'resonance',
     text: 'WAVE SCAN α: When you begin to develop feelings for someone, what happens internally?',
+    jaText: '波動スキャン α：誰かに恋心を抱き始めたとき、内側では何が起こる？',
     options: [
-      { text: 'My feelings snowball — each thought amplifies the next, building to a crescendo', value: 1 },
-      { text: 'The initial spark fades unless something external keeps reigniting it', value: -1 }
+      { text: 'My feelings snowball — each thought amplifies the next, building to a crescendo', jaText: '感情が雪だるま式に膨らむ — 一つ一つの思考が次を増幅し、頂点へと高まる', value: 1 },
+      { text: 'The initial spark fades unless something external keeps reigniting it', jaText: '最初の火花は外からの再点火がなければ消えてしまう', value: -1 }
     ]
   },
   {
     axis: 'resonance',
     text: 'WAVE SCAN α: After a relationship ends, your emotional residue typically...',
+    jaText: '波動スキャン α：関係が終わった後、感情の残滓はたいてい…',
     options: [
-      { text: 'Intensifies with distance — I idealize and feel more as time passes', value: 1 },
-      { text: 'Gradually dissipates — like a signal losing power over distance', value: -1 }
+      { text: 'Intensifies with distance — I idealize and feel more as time passes', jaText: '距離とともに強まる — 時間が経つほど理想化され、より強く感じる', value: 1 },
+      { text: 'Gradually dissipates — like a signal losing power over distance', jaText: '徐々に拡散する — 距離とともに力を失う信号のように', value: -1 }
     ]
   },
   {
     axis: 'resonance',
     text: 'WAVE SCAN α: When separated from someone you love for a long period...',
+    jaText: '波動スキャン α：愛する人と長期間離れると…',
     options: [
-      { text: 'Absence amplifies everything — longing feeds on itself', value: 1 },
-      { text: 'The emotional charge slowly drains — I need presence to maintain it', value: -1 }
+      { text: 'Absence amplifies everything — longing feeds on itself', jaText: '不在がすべてを増幅する — 恋しさは自らを糧にする', value: 1 },
+      { text: 'The emotional charge slowly drains — I need presence to maintain it', jaText: '感情の電荷は徐々に尽きる — 維持には相手の存在が必要', value: -1 }
     ]
   },
   {
     axis: 'resonance',
     text: 'WAVE SCAN α: Your internal emotional system is best described as...',
+    jaText: '波動スキャン α：あなたの内的感情システムを最もよく表すのは…',
     options: [
-      { text: 'A feedback loop — emotions compound and escalate on their own', value: 1 },
-      { text: 'A cooling system — emotions naturally regulate back to baseline', value: -1 }
+      { text: 'A feedback loop — emotions compound and escalate on their own', jaText: 'フィードバックループ — 感情は自ら複利で増大する', value: 1 },
+      { text: 'A cooling system — emotions naturally regulate back to baseline', jaText: '冷却システム — 感情は自然に基準点へ戻る', value: -1 }
     ]
   },
   // Coupling (S vs A) — questions 4-7
   {
     axis: 'coupling',
     text: 'COUPLING SCAN β: When someone shows clear romantic interest in you...',
+    jaText: '結合スキャン β：誰かが明らかに恋愛的関心を示してきたら…',
     options: [
-      { text: 'I feel drawn toward them — their energy is magnetic and warm', value: 1 },
-      { text: 'I instinctively pull back — too much interest triggers my shields', value: -1 }
+      { text: 'I feel drawn toward them — their energy is magnetic and warm', jaText: '惹き寄せられる — そのエネルギーは磁力的で温かい', value: 1 },
+      { text: 'I instinctively pull back — too much interest triggers my shields', jaText: '本能的に退く — 強すぎる関心はシールドを起動させる', value: -1 }
     ]
   },
   {
     axis: 'coupling',
     text: 'COUPLING SCAN β: The relationships that excite you most involve...',
+    jaText: '結合スキャン β：あなたが最も心躍る関係とは…',
     options: [
-      { text: 'Harmony and resonance — being perfectly in sync, finishing each other\'s thoughts', value: 1 },
-      { text: 'Push and pull — the electricity of opposing forces creating sparks', value: -1 }
+      { text: 'Harmony and resonance — being perfectly in sync, finishing each other\'s thoughts', jaText: '調和と共鳴 — 完璧に同期し、互いの思考を補い合う', value: 1 },
+      { text: 'Push and pull — the electricity of opposing forces creating sparks', jaText: '押し引き — 対立する力が火花を生む電気', value: -1 }
     ]
   },
   {
     axis: 'coupling',
     text: 'COUPLING SCAN β: When your partner is experiencing intense emotions...',
+    jaText: '結合スキャン β：パートナーが激しい感情を抱いているとき…',
     options: [
-      { text: 'I absorb and mirror their state — we oscillate together', value: 1 },
-      { text: 'I naturally counterbalance — providing the opposite of what they project', value: -1 }
+      { text: 'I absorb and mirror their state — we oscillate together', jaText: 'その状態を吸収し鏡映する — 共に振動する', value: 1 },
+      { text: 'I naturally counterbalance — providing the opposite of what they project', jaText: '自然に対抗バランスを取る — 相手が投げるものと逆を返す', value: -1 }
     ]
   },
   {
     axis: 'coupling',
     text: 'COUPLING SCAN β: Your ideal partner dynamic is one where...',
+    jaText: '結合スキャン β：理想のパートナー関係とは…',
     options: [
-      { text: 'We amplify each other\'s best frequencies — resonance creates beauty', value: 1 },
-      { text: 'We challenge each other\'s assumptions — friction creates growth', value: -1 }
+      { text: 'We amplify each other\'s best frequencies — resonance creates beauty', jaText: '互いの最良の周波数を増幅し合う — 共鳴が美を生む', value: 1 },
+      { text: 'We challenge each other\'s assumptions — friction creates growth', jaText: '互いの前提を問い合う — 摩擦が成長を生む', value: -1 }
     ]
   },
   // Phase (F vs W) — questions 8-11
   {
     axis: 'phase',
     text: 'PHASE SCAN ω: Your typical pattern of falling in love...',
+    jaText: '位相スキャン ω：あなたの恋の落ち方の典型は…',
     options: [
-      { text: 'Fast ignition — I know almost immediately if the chemistry is real', value: 1 },
-      { text: 'Slow combustion — real attraction builds over weeks or months', value: -1 }
+      { text: 'Fast ignition — I know almost immediately if the chemistry is real', jaText: '急速な着火 — 化学反応が本物かほぼ即座に分かる', value: 1 },
+      { text: 'Slow combustion — real attraction builds over weeks or months', jaText: 'ゆっくりした燃焼 — 本物の惹かれは数週間・数か月かけて育つ', value: -1 }
     ]
   },
   {
     axis: 'phase',
     text: 'PHASE SCAN ω: When conflict arises in a relationship, you tend to...',
+    jaText: '位相スキャン ω：関係に葛藤が生じたとき、あなたは…',
     options: [
-      { text: 'React immediately — emotions spike and I address it in the moment', value: 1 },
-      { text: 'Process slowly — I need time and space to understand what I feel', value: -1 }
+      { text: 'React immediately — emotions spike and I address it in the moment', jaText: '即座に反応 — 感情が急上昇し、その場で対処する', value: 1 },
+      { text: 'Process slowly — I need time and space to understand what I feel', jaText: 'ゆっくり処理 — 自分の感情を理解するには時間と空間が必要', value: -1 }
     ]
   },
   {
     axis: 'phase',
     text: 'PHASE SCAN ω: Your emotional cycles are best described as...',
+    jaText: '位相スキャン ω：あなたの感情サイクルを最もよく表すのは…',
     options: [
-      { text: 'High frequency — rapid oscillations, moods shift quickly and often', value: 1 },
-      { text: 'Low frequency — long wavelengths, emotional states persist for weeks', value: -1 }
+      { text: 'High frequency — rapid oscillations, moods shift quickly and often', jaText: '高周波 — 急速な振動、気分が素早く頻繁に変わる', value: 1 },
+      { text: 'Low frequency — long wavelengths, emotional states persist for weeks', jaText: '低周波 — 長い波長、感情の状態が数週間続く', value: -1 }
     ]
   },
   {
     axis: 'phase',
     text: 'PHASE SCAN ω: On a first date, your instinct tells you...',
+    jaText: '位相スキャン ω：初デートで、直感が教えてくれるのは…',
     options: [
-      { text: 'Everything — within minutes I have a strong sense of compatibility', value: 1 },
-      { text: 'Very little — the real signal emerges only after many interactions', value: -1 }
+      { text: 'Everything — within minutes I have a strong sense of compatibility', jaText: 'すべて — 数分で強い相性感を得る', value: 1 },
+      { text: 'Very little — the real signal emerges only after many interactions', jaText: 'ほとんど何も — 本物の信号は多くのやり取りの後にしか現れない', value: -1 }
     ]
   }
 ];
 
-const ANALYSIS_LOGS = [
-  '> Initializing Strogatz Love Dynamics Engine v3.7.2...',
-  '> Loading coupled oscillator framework...',
-  '> Parsing neural response vectors...',
-  '> Computing self-coupling coefficient α...',
-  '> Computing partner-coupling coefficient β...',
-  '> Analyzing phase velocity ω...',
-  '> Solving characteristic equation det(M - λI) = 0...',
-  '> Eigenvalue decomposition in progress...',
-  '> Mapping to oscillator type manifold...',
-  '> Cross-referencing with Strogatz compatibility matrix...',
-  '> Generating phase portrait...',
-  '> TYPE IDENTIFIED. Rendering results...'
-];
+const ANALYSIS_LOGS = {
+  en: [
+    '> Initializing Strogatz Love Dynamics Engine v3.7.2...',
+    '> Loading coupled oscillator framework...',
+    '> Parsing neural response vectors...',
+    '> Computing self-coupling coefficient α...',
+    '> Computing partner-coupling coefficient β...',
+    '> Analyzing phase velocity ω...',
+    '> Solving characteristic equation det(M - λI) = 0...',
+    '> Eigenvalue decomposition in progress...',
+    '> Mapping to oscillator type manifold...',
+    '> Cross-referencing with Strogatz compatibility matrix...',
+    '> Generating phase portrait...',
+    '> TYPE IDENTIFIED. Rendering results...'
+  ],
+  ja: [
+    '> ストロガッツ恋愛力学エンジン v3.7.2 を初期化中…',
+    '> 結合振動子フレームワークを読み込み中…',
+    '> 神経反応ベクトルを解析中…',
+    '> 自己結合係数 α を算出中…',
+    '> パートナー結合係数 β を算出中…',
+    '> 位相速度 ω を分析中…',
+    '> 特性方程式 det(M - λI) = 0 を求解中…',
+    '> 固有値分解を実行中…',
+    '> 振動子型多様体へのマッピング中…',
+    '> ストロガッツ相性マトリクスと照合中…',
+    '> 位相図を生成中…',
+    '> 振動型判定完了。結果を描画中…'
+  ]
+};
 
 // ===== COMPATIBILITY DYNAMICS =====
 const DYNAMICS_LABELS = {
@@ -244,42 +568,48 @@ const DYNAMICS_LABELS = {
     jaName: '収束結合',
     color: '#C0FC04',
     emoji: '🟢',
-    reading: 'Your dynamics converge to the love equilibrium — a relationship that naturally settles into deep, lasting harmony. The eigenvalues are real and negative (λ < 0), meaning every emotional perturbation decays back toward mutual love. This is not love shrinking — it is love finding its truest, most stable depth. Like two instruments tuning to the same perfect note.'
+    reading: 'Your dynamics converge to the love equilibrium — a relationship that naturally settles into deep, lasting harmony. The eigenvalues are real and negative (λ < 0), meaning every emotional perturbation decays back toward mutual love. This is not love shrinking — it is love finding its truest, most stable depth. Like two instruments tuning to the same perfect note.',
+    jaReading: 'あなた方の力学は恋愛平衡点へと収束する — 深く持続する調和に自然と落ち着く関係。固有値は実で負（λ < 0）であり、感情の揺らぎはすべて相互の愛へと減衰していく。これは愛が縮むのではなく、最も真実で安定した深みへと至る愛。同じ完璧な音程に調律された二つの楽器のように。'
   },
   stable_spiral: {
     name: 'HARMONIC DANCE',
     jaName: '調和螺旋',
     color: '#3601FB',
     emoji: '🟣',
-    reading: 'Your dynamics form an inward spiral toward the love equilibrium — you oscillate between closeness and distance, but each cycle brings you closer to deep mutual love. The complex eigenvalues have negative real parts (Re(λ) < 0), meaning your push-pull dance gradually converges. This is not love diminishing — it is turbulence settling into the deepest harmony.'
+    reading: 'Your dynamics form an inward spiral toward the love equilibrium — you oscillate between closeness and distance, but each cycle brings you closer to deep mutual love. The complex eigenvalues have negative real parts (Re(λ) < 0), meaning your push-pull dance gradually converges. This is not love diminishing — it is turbulence settling into the deepest harmony.',
+    jaReading: 'あなた方の力学は恋愛平衡点へ内向きの螺旋を描く — 近さと距離の間を揺れながら、各サイクルごとに深い相互の愛へ近づいていく。複素固有値の実部は負（Re(λ) < 0）であり、押し引きの舞は徐々に収束する。これは愛が弱まるのではなく、乱流が最も深い調和へと鎮まる姿。'
   },
   center: {
     name: 'ETERNAL ORBIT',
     jaName: '永遠軌道',
     color: '#01FFFF',
     emoji: '🔵',
-    reading: 'Your dynamics form a perfect closed orbit around the love equilibrium — an eternal dance that never settles into stillness but never loses its depth. Pure imaginary eigenvalues (λ = ±bi) create this rare, mesmerizing pattern. The distance from the love point stays constant: neither converging nor diverging. You are the couple in permanent, beautiful motion.'
+    reading: 'Your dynamics form a perfect closed orbit around the love equilibrium — an eternal dance that never settles into stillness but never loses its depth. Pure imaginary eigenvalues (λ = ±bi) create this rare, mesmerizing pattern. The distance from the love point stays constant: neither converging nor diverging. You are the couple in permanent, beautiful motion.',
+    jaReading: 'あなた方の力学は恋愛平衡点を巡る完璧な閉軌道を描く — 静止することはないが、深さも失わない永遠の舞。純虚数固有値（λ = ±bi）がこの稀有で魅惑的なパターンを生む。愛の点からの距離は一定：収束も発散もしない。あなた方は永久に美しく動き続けるカップル。'
   },
   unstable_spiral: {
     name: 'SUPERNOVA',
     jaName: '超新星',
     color: '#FF5500',
     emoji: '🟠',
-    reading: 'Your dynamics spiral outward from the love equilibrium — each emotional cycle amplifies the last, pushing further from balance. Complex eigenvalues with positive real parts (Re(λ) > 0) create this pattern of escalating deviation. This is not more love, but love that cannot find its resting point — passion too intense to settle. Exhilarating and volatile.'
+    reading: 'Your dynamics spiral outward from the love equilibrium — each emotional cycle amplifies the last, pushing further from balance. Complex eigenvalues with positive real parts (Re(λ) > 0) create this pattern of escalating deviation. This is not more love, but love that cannot find its resting point — passion too intense to settle. Exhilarating and volatile.',
+    jaReading: 'あなた方の力学は恋愛平衡点から外向きに螺旋を描く — 各感情サイクルが前を増幅し、均衡からさらに遠ざける。複素固有値の実部は正（Re(λ) > 0）で、逸脱が加速するパターンを生む。これは愛が増えるのではなく、休息点を見つけられない愛 — 静まるには激しすぎる情熱。刺激的で不安定。'
   },
   unstable_node: {
     name: 'CHAIN REACTION',
     jaName: '連鎖反応',
     color: '#FF0D1A',
     emoji: '🔴',
-    reading: 'Your dynamics explode away from equilibrium — real positive eigenvalues (λ > 0) drive emotional deviation in one direction without oscillation. This is not simply more love — it is feelings accelerating past all balance. Nuclear fusion-level intensity: once initiated, the reaction is unstoppable. The most overwhelming and transformative pairing.'
+    reading: 'Your dynamics explode away from equilibrium — real positive eigenvalues (λ > 0) drive emotional deviation in one direction without oscillation. This is not simply more love — it is feelings accelerating past all balance. Nuclear fusion-level intensity: once initiated, the reaction is unstoppable. The most overwhelming and transformative pairing.',
+    jaReading: 'あなた方の力学は均衡から爆発的に遠ざかる — 実の正固有値（λ > 0）が振動なしに感情の逸脱を一方向へ駆動する。単に愛が増えるのではなく、あらゆる均衡を超えて加速する感情。核融合級の激しさ：一度点火すれば反応は止められない。最も圧倒的で変革的なペアリング。'
   },
   saddle: {
     name: 'QUANTUM TUNNEL',
     jaName: '量子トンネル',
     color: '#C0FC04',
     emoji: '🟡',
-    reading: 'Your dynamics balance on a knife-edge at the love equilibrium — a saddle point where one axis converges toward deep love while the other diverges toward separation. The eigenvalues have opposite signs (λ₁ > 0, λ₂ < 0), creating a fundamentally unstable tension. Whether you fall into deep love or apart depends entirely on the initial conditions of your meeting.'
+    reading: 'Your dynamics balance on a knife-edge at the love equilibrium — a saddle point where one axis converges toward deep love while the other diverges toward separation. The eigenvalues have opposite signs (λ₁ > 0, λ₂ < 0), creating a fundamentally unstable tension. Whether you fall into deep love or apart depends entirely on the initial conditions of your meeting.',
+    jaReading: 'あなた方の力学は恋愛平衡点の刃の上で拮抗する — 一軸は深い愛へ収束し、もう一軸は分離へと発散する鞍点。固有値は符号が逆（λ₁ > 0, λ₂ < 0）であり、本質的に不安定な緊張を生む。深い愛に落ちるか別れるかは、出会いの初期条件に完全に依存する。'
   }
 };
 
@@ -416,10 +746,10 @@ function drawSpiralGrid(ctx, w, h, cx, cy, scale, accentColor) {
   ctx.font = '800 10px "Barlow Condensed", sans-serif';
   ctx.fillStyle = '#C0FC04';
   ctx.textAlign = 'left';
-  ctx.fillText('♡ DEEP MUTUAL LOVE', cx + 10, cy - 10);
+  ctx.fillText(t('canvas.equilibrium'), cx + 10, cy - 10);
   ctx.font = '400 8px "Share Tech Mono", monospace';
   ctx.fillStyle = 'rgba(192, 252, 4, 0.5)';
-  ctx.fillText('EQUILIBRIUM POINT', cx + 10, cy + 2);
+  ctx.fillText(t('canvas.equilibriumPoint'), cx + 10, cy + 2);
 
   // Ring labels — distance = emotional turbulence, NOT love amount
   ctx.font = '400 7px "Share Tech Mono", monospace';
@@ -433,8 +763,8 @@ function drawSpiralGrid(ctx, w, h, cx, cy, scale, accentColor) {
   ctx.font = '600 7px "Barlow Condensed", sans-serif';
   ctx.fillStyle = 'rgba(100, 100, 140, 0.3)';
   ctx.textAlign = 'left';
-  ctx.fillText('DISTANCE FROM CENTER = EMOTIONAL TURBULENCE', 6, h - 20);
-  ctx.fillText('CENTER = STABLE DEEP LOVE (NOT ZERO)', 6, h - 10);
+  ctx.fillText(t('canvas.distanceNote'), 6, h - 20);
+  ctx.fillText(t('canvas.centerNote'), 6, h - 10);
 }
 
 function drawSpiralAxes(ctx, w, h, cx, cy, color1, color2, mode) {
@@ -443,30 +773,30 @@ function drawSpiralAxes(ctx, w, h, cx, cy, color1, color2, mode) {
   // Horizontal axis — deviation from equilibrium, not absolute love
   ctx.fillStyle = (color1 || '#C0FC04') + '45';
   ctx.textAlign = 'right';
-  ctx.fillText('A\'S DEVIATION →', w - 6, cy - 9);
+  ctx.fillText(t('canvas.aDeviation'), w - 6, cy - 9);
   ctx.textAlign = 'left';
   ctx.fillText('←', 6, cy - 9);
 
   // Vertical axis
   ctx.fillStyle = (color2 || '#EA027E') + '45';
   ctx.textAlign = 'left';
-  ctx.fillText('↑ B\'S DEVIATION', cx + 10, 15);
+  ctx.fillText(t('canvas.bDeviation'), cx + 10, 15);
 
   // Narrative: what the dynamics MEAN for the relationship
   ctx.font = '700 9px "Barlow Condensed", sans-serif';
   ctx.textAlign = 'center';
   if (mode === 'stable') {
     ctx.fillStyle = '#C0FC04';
-    ctx.fillText('CONVERGES TO ♡ — LOVE FINDS ITS NATURAL RHYTHM', w / 2, h - 6);
+    ctx.fillText(t('canvas.stableNarr'), w / 2, h - 6);
   } else if (mode === 'unstable') {
     ctx.fillStyle = '#FF5500';
-    ctx.fillText('DIVERGES FROM ♡ — PASSION AMPLIFIES WITHOUT LIMIT', w / 2, h - 6);
+    ctx.fillText(t('canvas.unstableNarr'), w / 2, h - 6);
   } else if (mode === 'center') {
     ctx.fillStyle = '#01FFFF';
-    ctx.fillText('ORBITS ♡ — ETERNAL DANCE AROUND THE LOVE POINT', w / 2, h - 6);
+    ctx.fillText(t('canvas.centerNarr'), w / 2, h - 6);
   } else if (mode === 'saddle') {
     ctx.fillStyle = '#C0FC04';
-    ctx.fillText('KNIFE-EDGE AT ♡ — ONE PATH TO LOVE, ONE TO SEPARATION', w / 2, h - 6);
+    ctx.fillText(t('canvas.saddleNarr'), w / 2, h - 6);
   }
 }
 
@@ -706,27 +1036,42 @@ function startQuiz() {
   currentQuestion = 0;
   scores = { resonance: 0, coupling: 0, phase: 0 };
   answerHistory = [];
+  _quizOptionOrder = null;
   showSection('quiz');
   renderQuestion();
 }
 
+// Stable order per question so re-rendering on language switch keeps the same layout.
+let _quizOptionOrder = null;
+function _questionOrderKey() { return 'q' + currentQuestion; }
+
 function renderQuestion() {
   const q = QUESTIONS[currentQuestion];
-  document.getElementById('quiz-question').textContent = q.text;
+  const qText = L(q.text, q.jaText || q.text);
+  document.getElementById('quiz-question').textContent = qText;
   document.getElementById('quiz-counter').textContent =
     String(currentQuestion + 1).padStart(2, '0') + ' / ' + String(QUESTIONS.length).padStart(2, '0');
   document.getElementById('progress-fill').style.width =
     ((currentQuestion) / QUESTIONS.length * 100) + '%';
 
+  // Keep option order stable for this question (so lang swap doesn't reshuffle)
+  if (!_quizOptionOrder || _quizOptionOrder.key !== _questionOrderKey()) {
+    const order = q.options.map((_, i) => i).sort(() => Math.random() - 0.5);
+    _quizOptionOrder = { key: _questionOrderKey(), order };
+  }
+
   const optionsEl = document.getElementById('quiz-options');
-  const shuffled = [...q.options].sort(() => Math.random() - 0.5);
-  optionsEl.innerHTML = shuffled.map((opt, i) =>
-    `<button class="quiz-option" onclick="answerQuestion('${q.axis}', ${opt.value})">${opt.text}</button>`
+  const ordered = _quizOptionOrder.order.map(i => q.options[i]);
+  optionsEl.innerHTML = ordered.map(opt =>
+    `<button class="quiz-option" onclick="answerQuestion('${q.axis}', ${opt.value})">${L(opt.text, opt.jaText || opt.text)}</button>`
   ).join('');
 
   // Show/hide back button
   const backBtn = document.getElementById('quiz-back-btn');
-  if (backBtn) backBtn.style.display = currentQuestion > 0 ? '' : 'none';
+  if (backBtn) {
+    backBtn.style.display = currentQuestion > 0 ? '' : 'none';
+    backBtn.textContent = t('quiz.back');
+  }
 }
 
 function answerQuestion(axis, value) {
@@ -775,15 +1120,16 @@ function runAnalysis() {
   const ring = document.querySelector('.ring-progress');
   logEl.innerHTML = '';
 
+  const logs = ANALYSIS_LOGS[currentLang] || ANALYSIS_LOGS.en;
   let step = 0;
-  const totalSteps = ANALYSIS_LOGS.length;
+  const totalSteps = logs.length;
 
   function tick() {
     if (step < totalSteps) {
       const pct = Math.round(((step + 1) / totalSteps) * 100);
       percentEl.textContent = pct + '%';
       ring.style.strokeDashoffset = 565.5 * (1 - (step + 1) / totalSteps);
-      logEl.innerHTML += `<div class="log-line">${ANALYSIS_LOGS[step]}</div>`;
+      logEl.innerHTML += `<div class="log-line">${logs[step]}</div>`;
       logEl.scrollTop = logEl.scrollHeight;
       step++;
       setTimeout(tick, 300 + Math.random() * 200);
@@ -808,30 +1154,42 @@ function showResults() {
   userType = getType(scores);
   if (!userType) userType = TYPES.NOVA; // fallback
 
-  document.getElementById('result-icon').textContent = userType.icon;
-  const nameEl = document.getElementById('result-name');
-  nameEl.textContent = userType.name;
-  nameEl.style.color = userType.color;
-
-  document.getElementById('result-code').textContent =
-    `${userType.code} // ${userType.jaName} // α=${userType.params.a > 0 ? '+' : ''}${userType.params.a} β=${userType.params.b > 0 ? '+' : ''}${userType.params.b}`;
-  document.getElementById('result-tagline').textContent = userType.tagline;
-
-  // Params
-  document.getElementById('result-params').innerHTML = `
-    <div class="param-item"><span class="param-label">RESONANCE</span><span class="param-value">${userType.axes.resonance === 'R' ? 'RESONANT ↑' : 'DAMPED ↓'}</span></div>
-    <div class="param-item"><span class="param-label">COUPLING</span><span class="param-value">${userType.axes.coupling === 'S' ? 'SYNC ⇄' : 'ANTI ⇆'}</span></div>
-    <div class="param-item"><span class="param-label">PHASE</span><span class="param-value">${userType.axes.phase === 'F' ? 'FLASH ⚡' : 'WAVE ∿'}</span></div>
-  `;
-
-  document.getElementById('result-description').innerHTML =
-    `<p>${userType.description}</p>
-     <p style="margin-top:0.8rem;color:#C0FC04;font-weight:800;">STRENGTHS: ${userType.strengths}</p>
-     <p style="margin-top:0.4rem;color:#FF5500;font-weight:800;">RISKS: ${userType.risks}</p>`;
+  renderResultText(userType);
 
   drawRadarChart(document.getElementById('result-radar'), userType.traits, userType.color);
   drawResultSpiral(document.getElementById('result-spiral'), userType.params, userType.color);
   showSection('results');
+}
+
+// Split out so it can be re-called on language switch without re-running analysis.
+function renderResultText(type) {
+  document.getElementById('result-icon').textContent = type.icon;
+  const nameEl = document.getElementById('result-name');
+  nameEl.textContent = type.name;
+  nameEl.style.color = type.color;
+
+  document.getElementById('result-code').textContent =
+    `${type.code} // ${type.jaName} // α=${type.params.a > 0 ? '+' : ''}${type.params.a} β=${type.params.b > 0 ? '+' : ''}${type.params.b}`;
+  document.getElementById('result-tagline').textContent = L(type.tagline, type.jaTagline || type.tagline);
+
+  // Params — label/value swap with language
+  const paramLabel = (key) => t('param.' + key);
+  const resonanceVal = type.axes.resonance === 'R' ? t('param.resonant') : t('param.damped');
+  const couplingVal = type.axes.coupling === 'S' ? t('param.sync') : t('param.anti');
+  const phaseVal = type.axes.phase === 'F' ? t('param.flash') : t('param.wave');
+  document.getElementById('result-params').innerHTML = `
+    <div class="param-item"><span class="param-label">${paramLabel('resonance')}</span><span class="param-value">${resonanceVal}</span></div>
+    <div class="param-item"><span class="param-label">${paramLabel('coupling')}</span><span class="param-value">${couplingVal}</span></div>
+    <div class="param-item"><span class="param-label">${paramLabel('phase')}</span><span class="param-value">${phaseVal}</span></div>
+  `;
+
+  const desc = L(type.description, type.jaDescription || type.description);
+  const strengths = L(type.strengths, type.jaStrengths || type.strengths);
+  const risks = L(type.risks, type.jaRisks || type.risks);
+  document.getElementById('result-description').innerHTML =
+    `<p>${desc}</p>
+     <p style="margin-top:0.8rem;color:#C0FC04;font-weight:800;">${t('results.strengthsLabel')}: ${strengths}</p>
+     <p style="margin-top:0.4rem;color:#FF5500;font-weight:800;">${t('results.risksLabel')}: ${risks}</p>`;
 }
 
 // ===== RADAR CHART =====
@@ -842,7 +1200,7 @@ function drawRadarChart(canvas, traits, color) {
   const cx = w / 2;
   const cy = h / 2;
   const radius = Math.min(w, h) * 0.36;
-  const labels = ['INTENSITY', 'STABILITY', 'EMPATHY', 'INDEPENDENCE', 'SPEED', 'DEPTH'];
+  const labels = [t('radar.intensity'), t('radar.stability'), t('radar.empathy'), t('radar.independence'), t('radar.speed'), t('radar.depth')];
   const values = [traits.intensity, traits.stability, traits.empathy, traits.independence, traits.speed, traits.depth];
   const n = labels.length;
 
@@ -916,14 +1274,15 @@ function drawRadarChart(canvas, traits, color) {
 // ===== COMPATIBILITY =====
 function showCompatibility() {
   if (!userType) return;
-  document.getElementById('compat-your-type').textContent = `${userType.icon} ${userType.name}`;
-  document.getElementById('compat-your-type').style.borderColor = userType.color;
-  document.getElementById('compat-your-type').style.color = userType.color;
+  const yt = document.getElementById('compat-your-type');
+  yt.textContent = `${userType.icon} ${userType.name}`;
+  yt.style.borderColor = userType.color;
+  yt.style.color = userType.color;
 
   // Build partner grid
   const grid = document.getElementById('partner-type-grid');
-  grid.innerHTML = Object.values(TYPES).map(t =>
-    `<button class="type-grid-btn" data-type="${t.name}" onclick="selectPartner('${t.name}')">${t.icon}<br>${t.name}</button>`
+  grid.innerHTML = Object.values(TYPES).map(tp =>
+    `<button class="type-grid-btn" data-type="${tp.name}" onclick="selectPartner('${tp.name}')">${tp.icon}<br>${tp.name}<br><span class="type-grid-ja">${tp.jaName}</span></button>`
   ).join('');
 
   document.getElementById('compat-results').style.display = 'none';
@@ -983,8 +1342,6 @@ function runCompatibilityAnalysis() {
     classification = tr < 0 ? 'stable_node' : 'unstable_node';
   }
 
-  const dyn = DYNAMICS_LABELS[classification];
-
   // Compatibility score (faux-scientific)
   let score;
   switch (classification) {
@@ -997,37 +1354,14 @@ function runCompatibilityAnalysis() {
     default: score = 50;
   }
   // Add some variance based on actual parameter similarity
-  const paramDist = Math.abs(a1 - a2) + Math.abs(b1 + b2);
   score = Math.max(10, Math.min(99, Math.round(score + (Math.random() * 8 - 4))));
 
-  // Render classification
-  const classEl = document.getElementById('compat-class');
-  classEl.innerHTML = `<span style="color:${dyn.color}">${dyn.emoji} ${dyn.name} // ${dyn.jaName}</span>`;
+  // Store for re-render on lang switch
+  window._compatAnalysis = {
+    a1, b1, a2, b2, tr, det, disc, eigenStr, classification, score
+  };
 
-  // Render score
-  document.getElementById('compat-score').textContent = score;
-  const ring = document.getElementById('score-ring-fill');
-  ring.style.stroke = dyn.color;
-  ring.style.filter = `drop-shadow(0 0 6px ${dyn.color})`;
-  setTimeout(() => {
-    ring.style.strokeDashoffset = 440 * (1 - score / 100);
-  }, 100);
-
-  // Equation display
-  document.getElementById('compat-equation').innerHTML =
-    `<div>SYSTEM MATRIX M = [[${a1}, ${b1}], [${b2}, ${a2}]]</div>
-     <div>tr(M) = ${tr.toFixed(2)} &nbsp; det(M) = ${det.toFixed(2)} &nbsp; Δ = ${disc.toFixed(3)}</div>
-     <div>${eigenStr}</div>
-     <div>CLASSIFICATION: <span style="color:${dyn.color}">${dyn.name}</span></div>`;
-
-  // Eigenvalue display
-  document.getElementById('compat-eigen').innerHTML =
-    `<span style="color:var(--text-dim)">Eigenvalue analysis: ${eigenStr} → ${classification.replace('_', ' ').toUpperCase()}</span>`;
-
-  // Reading
-  document.getElementById('compat-reading').innerHTML =
-    `<p style="color:${dyn.color};font-weight:800;font-size:0.75rem;letter-spacing:0.15em;margin-bottom:0.5rem;">${dyn.name}</p>
-     <p>${dyn.reading}</p>`;
+  renderCompatText();
 
   // Shared simulation — all charts use the SAME trajectories
   const sp1 = { a: a1, b: b1 };
@@ -1044,13 +1378,14 @@ function runCompatibilityAnalysis() {
     simulate(sp1, sp2, ic.x, ic.y, sharedDt, sharedSteps)
   );
 
+  const dynHere = DYNAMICS_LABELS[classification];
   // Store in module-level state for click interactions
   window._compatState = {
     trajectories: sharedTrajectories,
     ics: sharedICs,
     dt: sharedDt,
     sp1, sp2,
-    dynColor: dyn.color,
+    dynColor: dynHere.color,
     color1: userType.color,
     color2: partnerType.color,
     selectedIdx: 0
@@ -1102,6 +1437,65 @@ function runCompatibilityAnalysis() {
 
   // Scroll to results
   resultsEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
+
+// Render all language-sensitive text on the compatibility results panel.
+// Safe to call multiple times (e.g. on language switch) once _compatAnalysis is populated.
+function renderCompatText() {
+  const A = window._compatAnalysis;
+  if (!A) return;
+  const dyn = DYNAMICS_LABELS[A.classification];
+  const dynName = L(dyn.name, dyn.jaName || dyn.name);
+  const dynReading = L(dyn.reading, dyn.jaReading || dyn.reading);
+
+  // Classification badge — show both localized primary name and other-language secondary
+  const classEl = document.getElementById('compat-class');
+  if (classEl) {
+    const primary = currentLang === 'ja' ? dyn.jaName : dyn.name;
+    const secondary = currentLang === 'ja' ? dyn.name : dyn.jaName;
+    classEl.innerHTML = `<span style="color:${dyn.color}">${dyn.emoji} ${primary} // ${secondary}</span>`;
+  }
+
+  // Score
+  const scoreEl = document.getElementById('compat-score');
+  if (scoreEl) scoreEl.textContent = A.score;
+  const ring = document.getElementById('score-ring-fill');
+  if (ring) {
+    ring.style.stroke = dyn.color;
+    ring.style.filter = `drop-shadow(0 0 6px ${dyn.color})`;
+    setTimeout(() => {
+      ring.style.strokeDashoffset = 440 * (1 - A.score / 100);
+    }, 100);
+  }
+
+  // Equation display
+  const classificationLabel = currentLang === 'ja'
+    ? '分類'
+    : 'CLASSIFICATION';
+  const eqEl = document.getElementById('compat-equation');
+  if (eqEl) {
+    eqEl.innerHTML =
+      `<div>SYSTEM MATRIX M = [[${A.a1}, ${A.b1}], [${A.b2}, ${A.a2}]]</div>
+       <div>tr(M) = ${A.tr.toFixed(2)} &nbsp; det(M) = ${A.det.toFixed(2)} &nbsp; Δ = ${A.disc.toFixed(3)}</div>
+       <div>${A.eigenStr}</div>
+       <div>${classificationLabel}: <span style="color:${dyn.color}">${dynName}</span></div>`;
+  }
+
+  // Eigenvalue display
+  const eigenEl = document.getElementById('compat-eigen');
+  if (eigenEl) {
+    const label = currentLang === 'ja' ? '固有値解析' : 'Eigenvalue analysis';
+    eigenEl.innerHTML =
+      `<span style="color:var(--text-dim)">${label}: ${A.eigenStr} → ${A.classification.replace('_', ' ').toUpperCase()}</span>`;
+  }
+
+  // Reading
+  const readingEl = document.getElementById('compat-reading');
+  if (readingEl) {
+    readingEl.innerHTML =
+      `<p style="color:${dyn.color};font-weight:800;font-size:0.75rem;letter-spacing:0.15em;margin-bottom:0.5rem;">${dynName}</p>
+       <p>${dynReading}</p>`;
+  }
 }
 
 // Select and highlight a trajectory — redraws time series + convergence
@@ -1191,7 +1585,7 @@ function drawConvergenceCurve(canvas, trajectories, dt, selectedIdx, dynColor, a
   ctx.font = '600 8px "Barlow Condensed", sans-serif';
   ctx.fillStyle = '#C0FC04';
   ctx.textAlign = 'left';
-  ctx.fillText('♡ EQUILIBRIUM (DISTANCE = 0)', padL + 4, zeroY - 4);
+  ctx.fillText(t('canvas.conv.equilibrium'), padL + 4, zeroY - 4);
 
   // Draw all trajectories dimmed
   for (let t = 0; t < distances.length; t++) {
@@ -1235,9 +1629,9 @@ function drawConvergenceCurve(canvas, trajectories, dt, selectedIdx, dynColor, a
   ctx.font = '800 11px "Barlow Condensed", sans-serif';
   ctx.fillStyle = accentColor || '#C0FC04';
   ctx.textAlign = 'left';
-  ctx.fillText(`— TRAJECTORY ${selectedIdx + 1}`, padL + 4, padT + 13);
+  ctx.fillText(`${t('canvas.conv.trajectory')} ${selectedIdx + 1}`, padL + 4, padT + 13);
   ctx.fillStyle = (dynColor || '#C0FC04') + '50';
-  ctx.fillText('— ALL OTHERS', padL + 140, padT + 13);
+  ctx.fillText(t('canvas.conv.allOthers'), padL + 140, padT + 13);
 
   // IC annotation
   const ic = trajectories[selectedIdx][0];
@@ -1250,11 +1644,11 @@ function drawConvergenceCurve(canvas, trajectories, dt, selectedIdx, dynColor, a
   ctx.font = '800 10px "Barlow Condensed", sans-serif';
   ctx.fillStyle = '#44445a';
   ctx.textAlign = 'center';
-  ctx.fillText('TIME →', padL + plotW / 2, h - 5);
+  ctx.fillText(t('canvas.ts.time'), padL + plotW / 2, h - 5);
   ctx.save();
   ctx.translate(14, padT + plotH / 2);
   ctx.rotate(-Math.PI / 2);
-  ctx.fillText('DISTANCE TO ♡', 0, 0);
+  ctx.fillText(t('canvas.conv.yAxis'), 0, 0);
   ctx.restore();
 
   // Y ticks
@@ -1475,7 +1869,7 @@ function drawTimeSeries(canvas, traj, dt, color1, color2) {
   ctx.font = '600 7px "Barlow Condensed", sans-serif';
   ctx.fillStyle = 'rgba(192, 252, 4, 0.4)';
   ctx.textAlign = 'left';
-  ctx.fillText('♡ EQ', padL + 2, zeroY - 4);
+  ctx.fillText(t('canvas.conv.eqShort'), padL + 2, zeroY - 4);
 
   // x(t) — flat, bold
   ctx.beginPath();
@@ -1505,9 +1899,9 @@ function drawTimeSeries(canvas, traj, dt, color1, color2) {
   ctx.font = '800 12px "Barlow Condensed", sans-serif';
   ctx.fillStyle = color1 || '#C0FC04';
   ctx.textAlign = 'left';
-  ctx.fillText('— YOU X(T)', padL + 6, padT + 14);
+  ctx.fillText(t('canvas.ts.you'), padL + 6, padT + 14);
   ctx.fillStyle = color2 || '#EA027E';
-  ctx.fillText('— THEM Y(T)', padL + 120, padT + 14);
+  ctx.fillText(t('canvas.ts.them'), padL + 120, padT + 14);
   // Show initial condition (matches highlighted trajectory in phase portrait)
   ctx.font = '400 8px "Share Tech Mono", monospace';
   ctx.fillStyle = '#44445a';
@@ -1518,11 +1912,11 @@ function drawTimeSeries(canvas, traj, dt, color1, color2) {
   ctx.font = '800 10px "Barlow Condensed", sans-serif';
   ctx.fillStyle = '#44445a';
   ctx.textAlign = 'center';
-  ctx.fillText('TIME →', padL + plotW / 2, h - 6);
+  ctx.fillText(t('canvas.ts.time'), padL + plotW / 2, h - 6);
   ctx.save();
   ctx.translate(14, padT + plotH / 2);
   ctx.rotate(-Math.PI / 2);
-  ctx.fillText('FEELING', 0, 0);
+  ctx.fillText(t('canvas.ts.feeling'), 0, 0);
   ctx.restore();
 
   // Y-axis ticks
@@ -1584,7 +1978,11 @@ function drawGallerySpiral(typeName) {
   const fdisc = ftr * ftr - 4 * fdet;
   const re = ftr / 2;
   const im = Math.sqrt(Math.max(0, -fdisc)) / 2;
-  const classification = isCenter ? 'CENTER ORBIT' : isStable ? 'STABLE SPIRAL' : 'UNSTABLE SPIRAL';
+  const classification = isCenter
+    ? L('CENTER ORBIT', '永遠軌道 / CENTER')
+    : isStable
+      ? L('STABLE SPIRAL', '安定螺旋 / STABLE')
+      : L('UNSTABLE SPIRAL', '不安定螺旋 / UNSTABLE');
 
   // Starting points
   const ics = [];
@@ -1686,26 +2084,32 @@ function clearGallerySpiral() {
 
 function renderTypesGallery() {
   const grid = document.getElementById('types-grid');
-  grid.innerHTML = Object.values(TYPES).map(t => `
-    <div class="type-card" data-type="${t.name}" style="--card-color:${t.color}"
-         onmouseenter="drawGallerySpiral('${t.name}')"
+  grid.innerHTML = Object.values(TYPES).map(tp => `
+    <div class="type-card" data-type="${tp.name}" style="--card-color:${tp.color}"
+         onmouseenter="drawGallerySpiral('${tp.name}')"
     >
-      <div class="type-card-icon" style="color:${t.color}">${t.icon}</div>
-      <div class="type-card-name" style="color:${t.color}">${t.name}</div>
-      <div class="type-card-code">${t.code} // ${t.jaName}</div>
-      <div class="type-card-desc">${t.tagline}</div>
+      <div class="type-card-icon" style="color:${tp.color}">${tp.icon}</div>
+      <div class="type-card-name" style="color:${tp.color}">${tp.name}</div>
+      <div class="type-card-code">${tp.code} // ${tp.jaName}</div>
+      <div class="type-card-desc">${L(tp.tagline, tp.jaTagline || tp.tagline)}</div>
       <div style="margin-top:0.5rem;font-size:0.65rem;color:var(--dim);">
-        α=${t.params.a > 0 ? '+' : ''}${t.params.a} β=${t.params.b > 0 ? '+' : ''}${t.params.b}
+        α=${tp.params.a > 0 ? '+' : ''}${tp.params.a} β=${tp.params.b > 0 ? '+' : ''}${tp.params.b}
       </div>
     </div>
   `).join('');
 
-  // Draw initial spiral for the first type
-  drawGallerySpiral('NOVA');
+  // Draw initial spiral for the first type (only if no type is already selected)
+  if (!currentGalleryType) drawGallerySpiral('NOVA');
 }
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Apply language BEFORE first render so static text + gallery cards come up in the right language.
+  applyLang();
+  // Wire up language toggle buttons
+  document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
   initBackground();
   initHeroSpiral();
   renderTypesGallery();

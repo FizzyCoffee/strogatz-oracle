@@ -4,24 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STROGATZ ORACLE // 恋愛振動占い</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-lang="ja">
   <canvas id="bg-canvas"></canvas>
   <div class="scanlines"></div>
+
+  <!-- ===== LANGUAGE TOGGLE ===== -->
+  <div class="lang-toggle" aria-label="Language">
+    <button class="lang-toggle-btn" data-lang="ja" type="button">日本語</button>
+    <span class="lang-toggle-sep">/</span>
+    <button class="lang-toggle-btn" data-lang="en" type="button">EN</button>
+  </div>
 
   <!-- ===== LANDING ===== -->
   <section id="landing" class="section active">
     <div class="landing-content">
       <div class="tag-row">
-        <span class="tag tag--lime">LOVE DYNAMICS</span>
-        <span class="tag tag--mag">PERSONALITY ANALYSIS</span>
-        <span class="tag tag--cyan">v3.7.2</span>
+        <span class="tag tag--lime" data-i18n="tag.loveDynamics.primary">LOVE DYNAMICS</span>
+        <span class="tag tag--mag" data-i18n="tag.personality.primary">PERSONALITY ANALYSIS</span>
+        <span class="tag tag--cyan" data-i18n="tag.version">v3.7.2</span>
       </div>
       <div class="hero-title-block">
-        <div class="hero-kanji">恋愛振動占い</div>
-        <h1 class="hero-title" data-text="STROGATZ ORACLE">STROGATZ<br>ORACLE</h1>
+        <div class="hero-kanji" data-i18n="hero.kanji">恋愛振動占い</div>
+        <h1 class="hero-title" data-text="STROGATZ ORACLE"><span data-i18n="hero.title.line1">STROGATZ</span><br><span data-i18n="hero.title.line2">ORACLE</span></h1>
       </div>
       <div class="hero-eq-bar">
         <span class="eq-item">dx/dt = αx + βy</span>
@@ -33,21 +40,21 @@
       <div class="hero-spiral-section">
         <canvas id="hero-spiral" width="560" height="560"></canvas>
         <div class="spiral-caption">
-          <span class="spiral-caption-label">LOVE DYNAMICS PHASE PORTRAIT</span>
-          <span class="spiral-caption-sub">恋愛力学位相図 // STROGATZ MODEL</span>
+          <span class="spiral-caption-label" data-i18n="hero.spiral.label">LOVE DYNAMICS PHASE PORTRAIT</span>
+          <span class="spiral-caption-sub" data-i18n="hero.spiral.sub">恋愛力学位相図 // STROGATZ MODEL</span>
         </div>
       </div>
-      <p class="hero-desc">
+      <p class="hero-desc" data-i18n-html="hero.desc">
         Based on Dr. Steven Strogatz's coupled oscillator theory, discover your
         <strong>Love Oscillation Type</strong> and unlock the mathematical secrets
         of romantic compatibility.
       </p>
       <div class="hero-actions">
         <button class="btn btn--primary" onclick="startQuiz()">
-          BEGIN ANALYSIS<span class="btn-ja">解析開始</span>
+          <span data-i18n="hero.btn.begin.primary">BEGIN ANALYSIS</span><span class="btn-ja" data-i18n="hero.btn.begin.sub">解析開始</span>
         </button>
         <button class="btn btn--ghost" onclick="showSection('types-gallery')">
-          VIEW ALL 8 TYPES<span class="btn-ja">全タイプ一覧</span>
+          <span data-i18n="hero.btn.types.primary">VIEW ALL 8 TYPES</span><span class="btn-ja" data-i18n="hero.btn.types.sub">全タイプ一覧</span>
         </button>
       </div>
       <div class="coord-label">STR-ORC :: 35.6762°N 139.6503°E :: 2026.04.14</div>
@@ -59,8 +66,8 @@
     <div class="quiz-container">
       <div class="quiz-header">
         <div class="quiz-top-row">
-          <span class="tag tag--mag">NEURAL SCAN</span>
-          <span class="tag tag--dim">心理波動解析</span>
+          <span class="tag tag--mag" data-i18n="quiz.tag.primary">NEURAL SCAN</span>
+          <span class="tag tag--dim" data-i18n="quiz.tag.sub">心理波動解析</span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
@@ -71,7 +78,7 @@
         <p class="quiz-question" id="quiz-question"></p>
         <div class="quiz-options" id="quiz-options"></div>
         <div class="quiz-nav">
-          <button class="btn btn--ghost quiz-back-btn" id="quiz-back-btn" onclick="goBackQuestion()" style="display:none">
+          <button class="btn btn--ghost quiz-back-btn" id="quiz-back-btn" onclick="goBackQuestion()" style="display:none" data-i18n="quiz.back">
             ← BACK
           </button>
         </div>
@@ -97,8 +104,8 @@
   <section id="results" class="section">
     <div class="results-container">
       <div class="tag-row">
-        <span class="tag tag--mag">TYPE IDENTIFIED</span>
-        <span class="tag tag--dim">波動型判定</span>
+        <span class="tag tag--mag" data-i18n="results.tag.primary">TYPE IDENTIFIED</span>
+        <span class="tag tag--dim" data-i18n="results.tag.sub">波動型判定</span>
       </div>
       <div class="result-type-block">
         <div class="result-icon" id="result-icon"></div>
@@ -113,8 +120,8 @@
 
       <div class="result-chart-section">
         <div class="section-bar">
-          <span class="section-bar-label">YOUR LOVE SPIRAL</span>
-          <span class="section-bar-ja">恋愛螺旋</span>
+          <span class="section-bar-label" data-i18n="results.spiral.label">YOUR LOVE SPIRAL</span>
+          <span class="section-bar-ja" data-i18n="results.spiral.sub">恋愛螺旋</span>
         </div>
         <div class="result-spiral-wrap">
           <canvas id="result-spiral" width="480" height="480"></canvas>
@@ -122,18 +129,18 @@
       </div>
       <div class="result-chart-section">
         <div class="section-bar">
-          <span class="section-bar-label">TRAIT PROFILE</span>
-          <span class="section-bar-ja">特性プロファイル</span>
+          <span class="section-bar-label" data-i18n="results.trait.label">TRAIT PROFILE</span>
+          <span class="section-bar-ja" data-i18n="results.trait.sub">特性プロファイル</span>
         </div>
         <canvas id="result-radar" width="340" height="340"></canvas>
       </div>
 
       <div class="result-actions">
         <button class="btn btn--primary" onclick="showCompatibility()">
-          CHECK COMPATIBILITY<span class="btn-ja">共振適合度チェック</span>
+          <span data-i18n="results.btn.compat.primary">CHECK COMPATIBILITY</span><span class="btn-ja" data-i18n="results.btn.compat.sub">共振適合度チェック</span>
         </button>
-        <button class="btn btn--ghost" onclick="showSection('types-gallery')">ALL TYPES</button>
-        <button class="btn btn--ghost" onclick="resetQuiz()">RETAKE QUIZ</button>
+        <button class="btn btn--ghost" onclick="showSection('types-gallery')" data-i18n="results.btn.allTypes">ALL TYPES</button>
+        <button class="btn btn--ghost" onclick="resetQuiz()" data-i18n="results.btn.retake">RETAKE QUIZ</button>
       </div>
     </div>
   </section>
@@ -142,18 +149,18 @@
   <section id="compatibility" class="section">
     <div class="compat-container">
       <div class="tag-row">
-        <span class="tag tag--lime">RESONANCE CHECK</span>
-        <span class="tag tag--dim">共振適合度</span>
+        <span class="tag tag--lime" data-i18n="compat.tag.primary">RESONANCE CHECK</span>
+        <span class="tag tag--dim" data-i18n="compat.tag.sub">共振適合度</span>
       </div>
 
       <div class="compat-selector">
         <div class="compat-you">
-          <span class="compat-role">YOUR TYPE</span>
+          <span class="compat-role" data-i18n="compat.yourType">YOUR TYPE</span>
           <div class="compat-type-badge" id="compat-your-type"></div>
         </div>
         <div class="compat-vs">×</div>
         <div class="compat-partner">
-          <span class="compat-role">PARTNER TYPE</span>
+          <span class="compat-role" data-i18n="compat.partnerType">PARTNER TYPE</span>
           <div class="type-grid" id="partner-type-grid"></div>
         </div>
       </div>
@@ -173,27 +180,27 @@
         <div class="compat-equation" id="compat-equation"></div>
 
         <div class="traj-selector">
-          <span class="traj-selector-label">INITIAL CONDITION</span>
+          <span class="traj-selector-label" data-i18n="compat.ic.label">INITIAL CONDITION</span>
           <div class="traj-buttons" id="traj-buttons"></div>
-          <span class="traj-selector-hint">Click a trajectory on the phase portrait or select here</span>
+          <span class="traj-selector-hint" data-i18n="compat.ic.hint">Click a trajectory on the phase portrait or select here</span>
         </div>
         <div class="compat-charts">
           <div class="chart-panel">
             <div class="chart-bar">
-              <span>PHASE PORTRAIT</span><span class="chart-bar-ja">位相空間 — CLICK TO SELECT</span>
+              <span data-i18n="compat.phase.primary">PHASE PORTRAIT</span><span class="chart-bar-ja" data-i18n="compat.phase.sub">位相空間 — CLICK TO SELECT</span>
             </div>
             <canvas id="phase-canvas" width="440" height="440"></canvas>
           </div>
           <div class="chart-panel">
             <div class="chart-bar">
-              <span>TIME SERIES</span><span class="chart-bar-ja">時系列</span>
+              <span data-i18n="compat.time.primary">TIME SERIES</span><span class="chart-bar-ja" data-i18n="compat.time.sub">時系列</span>
             </div>
             <canvas id="time-canvas" width="440" height="320"></canvas>
           </div>
         </div>
         <div class="chart-panel chart-panel--wide">
           <div class="chart-bar">
-            <span>LOVE CONVERGENCE</span><span class="chart-bar-ja">愛の収束曲線 — DISTANCE TO ♡ OVER TIME</span>
+            <span data-i18n="compat.conv.primary">LOVE CONVERGENCE</span><span class="chart-bar-ja" data-i18n="compat.conv.sub">愛の収束曲線 — DISTANCE TO ♡ OVER TIME</span>
           </div>
           <canvas id="convergence-canvas" width="880" height="240"></canvas>
         </div>
@@ -203,8 +210,8 @@
       </div>
 
       <div class="compat-actions">
-        <button class="btn btn--ghost" onclick="showSection('results')">BACK TO RESULTS</button>
-        <button class="btn btn--ghost" onclick="resetQuiz()">RETAKE QUIZ</button>
+        <button class="btn btn--ghost" onclick="showSection('results')" data-i18n="compat.btn.back">BACK TO RESULTS</button>
+        <button class="btn btn--ghost" onclick="resetQuiz()" data-i18n="compat.btn.retake">RETAKE QUIZ</button>
       </div>
     </div>
   </section>
@@ -213,39 +220,39 @@
   <section id="types-gallery" class="section">
     <div class="gallery-container">
       <div class="tag-row">
-        <span class="tag tag--lime">ALL OSCILLATOR TYPES</span>
-        <span class="tag tag--dim">全振動型一覧</span>
+        <span class="tag tag--lime" data-i18n="gallery.tag.primary">ALL OSCILLATOR TYPES</span>
+        <span class="tag tag--dim" data-i18n="gallery.tag.sub">全振動型一覧</span>
       </div>
-      <h2 class="gallery-title">THE 8 TYPES</h2>
-      <p class="gallery-intro">
+      <h2 class="gallery-title" data-i18n="gallery.title">THE 8 TYPES</h2>
+      <p class="gallery-intro" data-i18n="gallery.intro">
         The Strogatz Love Dynamics model classifies individuals into 8 oscillator types
         based on three fundamental axes of romantic wave mechanics.
       </p>
       <div class="axes-legend">
         <div class="axis-chip">
-          <span class="axis-chip-name">RESONANCE</span>
-          <span class="axis-chip-desc"><b>R</b>ESONANT / <b>D</b>AMPED</span>
+          <span class="axis-chip-name" data-i18n="gallery.axis.resonance.name">RESONANCE</span>
+          <span class="axis-chip-desc" data-i18n-html="gallery.axis.resonance.desc"><b>R</b>ESONANT / <b>D</b>AMPED</span>
         </div>
         <div class="axis-chip">
-          <span class="axis-chip-name">COUPLING</span>
-          <span class="axis-chip-desc"><b>S</b>YNC / <b>A</b>NTI</span>
+          <span class="axis-chip-name" data-i18n="gallery.axis.coupling.name">COUPLING</span>
+          <span class="axis-chip-desc" data-i18n-html="gallery.axis.coupling.desc"><b>S</b>YNC / <b>A</b>NTI</span>
         </div>
         <div class="axis-chip">
-          <span class="axis-chip-name">PHASE</span>
-          <span class="axis-chip-desc"><b>F</b>LASH / <b>W</b>AVE</span>
+          <span class="axis-chip-name" data-i18n="gallery.axis.phase.name">PHASE</span>
+          <span class="axis-chip-desc" data-i18n-html="gallery.axis.phase.desc"><b>F</b>LASH / <b>W</b>AVE</span>
         </div>
       </div>
       <div class="gallery-split">
         <div class="gallery-spiral-panel">
           <div class="spiral-preview-header">
-            <span class="spiral-preview-label" id="spiral-preview-label">HOVER A TYPE</span>
-            <span class="spiral-preview-sub" id="spiral-preview-sub">タイプにカーソルを合わせる</span>
+            <span class="spiral-preview-label" id="spiral-preview-label" data-i18n="gallery.preview.label">HOVER A TYPE</span>
+            <span class="spiral-preview-sub" id="spiral-preview-sub" data-i18n="gallery.preview.sub">タイプにカーソルを合わせる</span>
           </div>
           <div class="spiral-preview-wrap">
             <canvas id="gallery-spiral" width="480" height="480"></canvas>
           </div>
           <div class="spiral-preview-info" id="spiral-preview-info">
-            <div class="spiral-preview-placeholder">← Select a type to see its love dynamics spiral</div>
+            <div class="spiral-preview-placeholder" data-i18n="gallery.preview.placeholder">← Select a type to see its love dynamics spiral</div>
           </div>
         </div>
         <div class="gallery-cards-panel">
@@ -254,9 +261,9 @@
       </div>
       <div class="gallery-actions">
         <button class="btn btn--primary" onclick="startQuiz()">
-          TAKE THE QUIZ<span class="btn-ja">診断を受ける</span>
+          <span data-i18n="gallery.btn.quiz.primary">TAKE THE QUIZ</span><span class="btn-ja" data-i18n="gallery.btn.quiz.sub">診断を受ける</span>
         </button>
-        <button class="btn btn--ghost" onclick="showSection('landing')">HOME</button>
+        <button class="btn btn--ghost" onclick="showSection('landing')" data-i18n="gallery.btn.home">HOME</button>
       </div>
     </div>
   </section>

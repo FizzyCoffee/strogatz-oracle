@@ -1067,3 +1067,91 @@ body {
   .hero-title { font-size: 2.5rem; }
   .result-name { font-size: 2.2rem; }
 }
+
+/* ===== LANGUAGE TOGGLE ===== */
+.lang-toggle {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.9rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  background: rgba(5, 5, 10, 0.72);
+  border: 2px solid var(--dim);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-family: var(--font-mono);
+}
+.lang-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--dim);
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  padding: 0.2rem 0.45rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.lang-toggle-btn:hover { color: var(--white); }
+.lang-toggle-btn.active {
+  color: var(--black);
+  background: var(--lime);
+}
+.lang-toggle-sep {
+  color: var(--dim2);
+  font-size: 0.7rem;
+}
+
+/* Japanese body type on ja mode — use a proper JP font for readable paragraphs */
+body[data-lang="ja"] .hero-desc,
+body[data-lang="ja"] .quiz-question,
+body[data-lang="ja"] .quiz-option,
+body[data-lang="ja"] .result-tagline,
+body[data-lang="ja"] .result-desc-block,
+body[data-lang="ja"] .compat-reading,
+body[data-lang="ja"] .gallery-intro,
+body[data-lang="ja"] .type-card-desc,
+body[data-lang="ja"] .traj-selector-hint {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', var(--font-head), sans-serif;
+}
+body[data-lang="ja"] .quiz-question {
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+body[data-lang="ja"] .hero-desc {
+  line-height: 1.8;
+}
+
+/* Keep the English sub-label under JA buttons styled consistently */
+body[data-lang="ja"] .btn-ja {
+  font-family: var(--font-mono);
+  letter-spacing: 0.2em;
+}
+
+/* Partner grid: Japanese sub-label */
+.type-grid-ja {
+  display: block;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  font-size: 0.55rem;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+  margin-top: 0.1rem;
+}
+
+@media (max-width: 560px) {
+  .lang-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.2rem 0.4rem;
+  }
+  .lang-toggle-btn {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.3rem;
+  }
+}
