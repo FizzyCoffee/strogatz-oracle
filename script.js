@@ -286,6 +286,7 @@ const DYNAMICS_LABELS = {
 // ===== STATE =====
 let currentQuestion = 0;
 let scores = { resonance: 0, coupling: 0, phase: 0 };
+let answerHistory = []; // stores {axis, value} for each answered question
 let userType = null;
 let partnerType = null;
 let phaseAnimationId = null;
@@ -704,6 +705,7 @@ function showSection(id) {
 function startQuiz() {
   currentQuestion = 0;
   scores = { resonance: 0, coupling: 0, phase: 0 };
+  answerHistory = [];
   showSection('quiz');
   renderQuestion();
 }
@@ -717,18 +719,21 @@ function renderQuestion() {
     ((currentQuestion) / QUESTIONS.length * 100) + '%';
 
   const optionsEl = document.getElementById('quiz-options');
-  // Shuffle options randomly
   const shuffled = [...q.options].sort(() => Math.random() - 0.5);
   optionsEl.innerHTML = shuffled.map((opt, i) =>
     `<button class="quiz-option" onclick="answerQuestion('${q.axis}', ${opt.value})">${opt.text}</button>`
   ).join('');
+
+  // Show/hide back button
+  const backBtn = document.getElementById('quiz-back-btn');
+  if (backBtn) backBtn.style.display = currentQuestion > 0 ? '' : 'none';
 }
 
 function answerQuestion(axis, value) {
+  answerHistory.push({ axis, value });
   scores[axis] += value;
   currentQuestion++;
   if (currentQuestion < QUESTIONS.length) {
-    // Brief flash transition
     const body = document.querySelector('.quiz-body');
     body.style.opacity = 0;
     setTimeout(() => {
@@ -739,6 +744,20 @@ function answerQuestion(axis, value) {
     document.getElementById('progress-fill').style.width = '100%';
     runAnalysis();
   }
+}
+
+function goBackQuestion() {
+  if (currentQuestion <= 0 || answerHistory.length === 0) return;
+  // Undo the last answer
+  const last = answerHistory.pop();
+  scores[last.axis] -= last.value;
+  currentQuestion--;
+  const body = document.querySelector('.quiz-body');
+  body.style.opacity = 0;
+  setTimeout(() => {
+    renderQuestion();
+    body.style.opacity = 1;
+  }, 150);
 }
 
 function resetQuiz() {

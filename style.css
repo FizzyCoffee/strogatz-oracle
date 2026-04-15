@@ -958,13 +958,112 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--dim2); }
 ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
 
+/* Quiz nav */
+.quiz-nav {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.quiz-back-btn {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+}
+
 /* ===== MOBILE ===== */
 @media (max-width: 600px) {
-  .section { padding: 1.5rem 1rem; }
+  .section { padding: 1.2rem 0.8rem; }
   .hero-eq-bar { flex-direction: column; gap: 0.3rem; }
   .eq-sep { display: none; }
-  .compat-selector { flex-direction: column; align-items: center; }
-  .type-grid { grid-template-columns: repeat(2, 1fr); max-width: 200px; }
+  .hero-title { font-size: clamp(2.8rem, 12vw, 5rem); }
+
+  /* Compat selector — stack vertically, full width partner grid */
+  .compat-selector {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .compat-you { text-align: center; }
+  .compat-vs { text-align: center; margin: 0; }
+  .compat-partner { text-align: center; }
+  .compat-role { margin-bottom: 0.4rem; }
+
+  /* Partner type grid — 2 columns, larger touch targets */
+  .type-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    gap: 0.4rem;
+  }
+  .type-grid-btn {
+    padding: 0.7rem 0.4rem;
+    font-size: 0.7rem;
+    min-height: 52px;
+  }
+
+  /* Result params */
   .result-params { flex-direction: column; }
-  .param-item + .param-item { border-left: 2px solid var(--dim2); border-top: none; }
+  .param-item + .param-item {
+    border-left: 2px solid var(--dim2);
+    border-top: none;
+  }
+
+  /* Trajectory selector — wrap nicely */
+  .traj-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .traj-buttons { flex-wrap: wrap; }
+  .traj-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.7rem;
+  }
+  .traj-selector-hint { font-size: 0.5rem; }
+
+  /* Charts — stack single column */
+  .compat-charts { grid-template-columns: 1fr; }
+
+  /* Buttons — full width on mobile */
+  .btn--primary, .btn--ghost {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-actions {
+    flex-direction: column;
+  }
+  .result-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .compat-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .gallery-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Gallery split — stack on mobile */
+  .gallery-split { grid-template-columns: 1fr; }
+  .gallery-spiral-panel { position: static; }
+
+  /* Type cards — single column on small phones */
+  .types-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Convergence chart */
+  .chart-panel--wide { overflow-x: auto; }
+
+  /* Smaller fonts for long text */
+  .compat-equation { font-size: 0.6rem; }
+  .quiz-question { font-size: 1.1rem; }
+  .result-name { font-size: clamp(2.5rem, 9vw, 4rem); }
+  .gallery-title { font-size: clamp(2rem, 8vw, 4rem); }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+  .type-grid-btn { font-size: 0.6rem; min-height: 46px; }
+  .hero-title { font-size: 2.5rem; }
+  .result-name { font-size: 2.2rem; }
 }
