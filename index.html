@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STROGATZ ORACLE // 恋愛振動占い</title>
+  <title>STROGATZ ORACLE // 恋愛力学占い</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,7 +27,7 @@
         <span class="tag tag--cyan" data-i18n="tag.version">v3.7.2</span>
       </div>
       <div class="hero-title-block">
-        <div class="hero-kanji" data-i18n="hero.kanji">恋愛振動占い</div>
+        <div class="hero-kanji" data-i18n="hero.kanji">恋愛力学占い</div>
         <h1 class="hero-title" data-text="STROGATZ ORACLE"><span data-i18n="hero.title.line1">STROGATZ</span><br><span data-i18n="hero.title.line2">ORACLE</span></h1>
       </div>
       <div class="hero-eq-bar">
@@ -35,7 +35,7 @@
         <span class="eq-sep">/</span>
         <span class="eq-item">dy/dt = γx + δy</span>
         <span class="eq-sep">/</span>
-        <span class="eq-item mono-dim">COUPLED OSCILLATOR MODEL</span>
+        <span class="eq-item mono-dim">COUPLED LOVE DYNAMICS</span>
       </div>
       <div class="hero-spiral-section">
         <canvas id="hero-spiral" width="560" height="560"></canvas>
@@ -45,13 +45,16 @@
         </div>
       </div>
       <p class="hero-desc" data-i18n-html="hero.desc">
-        Based on Dr. Steven Strogatz's coupled oscillator theory, discover your
-        <strong>Love Oscillation Type</strong> and unlock the mathematical secrets
-        of romantic compatibility.
+        Based on Dr. Steven Strogatz's coupled love dynamics theory, discover your
+        <strong>Love Type</strong> and unlock the mathematical secrets
+        of romantic compatibility — how two hearts converge, orbit, or spiral apart.
       </p>
       <div class="hero-actions">
         <button class="btn btn--primary" onclick="startQuiz()">
           <span data-i18n="hero.btn.begin.primary">BEGIN ANALYSIS</span><span class="btn-ja" data-i18n="hero.btn.begin.sub">解析開始</span>
+        </button>
+        <button class="btn btn--ghost" onclick="showThreeBody()">
+          <span data-i18n="tb.btn.threebody">THREE LOVERS DYNAMICS</span><span class="btn-ja" data-i18n="tb.btn.threebody.sub">三人の恋愛力学</span>
         </button>
         <button class="btn btn--ghost" onclick="showSection('types-gallery')">
           <span data-i18n="hero.btn.types.primary">VIEW ALL 8 TYPES</span><span class="btn-ja" data-i18n="hero.btn.types.sub">全タイプ一覧</span>
@@ -139,6 +142,9 @@
         <button class="btn btn--primary" onclick="showCompatibility()">
           <span data-i18n="results.btn.compat.primary">CHECK COMPATIBILITY</span><span class="btn-ja" data-i18n="results.btn.compat.sub">共振適合度チェック</span>
         </button>
+        <button class="btn btn--ghost" onclick="showThreeBody()">
+          <span data-i18n="tb.btn.threebody">THREE LOVERS DYNAMICS</span><span class="btn-ja" data-i18n="tb.btn.threebody.sub">三人の恋愛力学</span>
+        </button>
         <button class="btn btn--ghost" onclick="showSection('types-gallery')" data-i18n="results.btn.allTypes">ALL TYPES</button>
         <button class="btn btn--ghost" onclick="resetQuiz()" data-i18n="results.btn.retake">RETAKE QUIZ</button>
       </div>
@@ -210,8 +216,122 @@
       </div>
 
       <div class="compat-actions">
+        <button class="btn btn--ghost" onclick="showThreeBody()">
+          <span data-i18n="tb.btn.threebody">THREE LOVERS DYNAMICS</span><span class="btn-ja" data-i18n="tb.btn.threebody.sub">三人の恋愛力学</span>
+        </button>
         <button class="btn btn--ghost" onclick="showSection('results')" data-i18n="compat.btn.back">BACK TO RESULTS</button>
         <button class="btn btn--ghost" onclick="resetQuiz()" data-i18n="compat.btn.retake">RETAKE QUIZ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THREE LOVERS DYNAMICS ===== -->
+  <section id="three-body" class="section">
+    <div class="tb-container">
+      <div class="tag-row">
+        <span class="tag tag--mag" data-i18n="tb.tag.primary">THREE LOVERS DYNAMICS</span>
+        <span class="tag tag--dim" data-i18n="tb.tag.sub">三人の恋愛力学</span>
+      </div>
+      <h2 class="tb-title" data-i18n="tb.title">THREE LOVERS</h2>
+      <p class="tb-intro" data-i18n="tb.intro">When three hearts become entangled, the mathematics of love transforms. A 3×3 coupled system creates love dynamics impossible between two — shifting devotions, intertwined longing, and passions that spiral beyond control.</p>
+
+      <div class="tb-equation-bar">
+        <span class="eq-item">dx/dt = α₁x + β₁y + β₁z</span>
+        <span class="eq-sep">/</span>
+        <span class="eq-item">dy/dt = β₂x + α₂y + β₂z</span>
+        <span class="eq-sep">/</span>
+        <span class="eq-item">dz/dt = β₃x + β₃y + α₃z</span>
+      </div>
+
+      <div class="section-bar">
+        <span class="section-bar-label" data-i18n="tb.presets.label">LOVE PATTERNS</span>
+        <span class="section-bar-ja" data-i18n="tb.presets.sub">恋のパターン集</span>
+      </div>
+      <div class="tb-preset-grid" id="tb-preset-grid"></div>
+
+      <div class="section-bar" style="margin-top:2rem">
+        <span class="section-bar-label" data-i18n="tb.custom.label">CUSTOM LOVE TRIANGLE</span>
+        <span class="section-bar-ja" data-i18n="tb.custom.sub">カスタム恋愛三角</span>
+      </div>
+      <div class="tb-selector">
+        <div class="tb-slot">
+          <span class="tb-slot-label">A</span>
+          <div class="tb-type-badge" id="tb-badge-a">—</div>
+          <div class="type-grid tb-type-grid" id="tb-grid-a"></div>
+        </div>
+        <div class="tb-vs">×</div>
+        <div class="tb-slot">
+          <span class="tb-slot-label">B</span>
+          <div class="tb-type-badge" id="tb-badge-b">—</div>
+          <div class="type-grid tb-type-grid" id="tb-grid-b"></div>
+        </div>
+        <div class="tb-vs">×</div>
+        <div class="tb-slot">
+          <span class="tb-slot-label">C</span>
+          <div class="tb-type-badge" id="tb-badge-c">—</div>
+          <div class="type-grid tb-type-grid" id="tb-grid-c"></div>
+        </div>
+      </div>
+
+      <div class="tb-results" id="tb-results" style="display:none;">
+        <div class="compat-score-section">
+          <div class="compat-classification" id="tb-class"></div>
+          <div class="compat-score-ring">
+            <svg viewBox="0 0 180 180">
+              <circle cx="90" cy="90" r="78" class="score-ring-bg"/>
+              <circle cx="90" cy="90" r="78" class="score-ring-fill" id="tb-score-ring-fill"/>
+            </svg>
+            <div class="compat-score-value" id="tb-score">0</div>
+          </div>
+        </div>
+
+        <div class="compat-equation" id="tb-equation"></div>
+
+        <div class="traj-selector">
+          <span class="traj-selector-label" data-i18n="compat.ic.label">INITIAL CONDITION</span>
+          <div class="traj-buttons" id="tb-traj-buttons"></div>
+        </div>
+
+        <div class="tb-charts">
+          <div class="chart-panel">
+            <div class="chart-bar">
+              <span data-i18n="tb.orbit.primary">3D LOVE ORBIT</span>
+              <span class="chart-bar-ja" data-i18n="tb.orbit.sub">三者の恋愛軌道</span>
+            </div>
+            <canvas id="tb-orbit-canvas" width="480" height="480"></canvas>
+          </div>
+          <div class="chart-panel">
+            <div class="chart-bar">
+              <span data-i18n="compat.time.primary">TIME SERIES</span>
+              <span class="chart-bar-ja" data-i18n="tb.time.sub">三者の恋の時系列</span>
+            </div>
+            <canvas id="tb-time-canvas" width="480" height="360"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-panel tb-pairwise-panel">
+          <div class="chart-bar">
+            <span data-i18n="tb.pairwise.primary">PAIRWISE LOVE DYNAMICS</span>
+            <span class="chart-bar-ja" data-i18n="tb.pairwise.sub">対の恋愛位相図</span>
+          </div>
+          <canvas id="tb-pairwise-canvas" width="960" height="480"></canvas>
+        </div>
+
+        <div class="chart-panel chart-panel--wide">
+          <div class="chart-bar">
+            <span data-i18n="compat.conv.primary">LOVE CONVERGENCE</span>
+            <span class="chart-bar-ja" data-i18n="tb.conv.sub">三者の愛の収束曲線</span>
+          </div>
+          <canvas id="tb-convergence-canvas" width="880" height="240"></canvas>
+        </div>
+
+        <div class="compat-reading" id="tb-reading"></div>
+        <div class="compat-eigen" id="tb-eigen"></div>
+      </div>
+
+      <div class="compat-actions">
+        <button class="btn btn--ghost" onclick="showSection('landing')" data-i18n="gallery.btn.home">HOME</button>
+        <button class="btn btn--ghost" onclick="showSection('results')" data-i18n="compat.btn.back">BACK TO RESULTS</button>
       </div>
     </div>
   </section>
@@ -221,12 +341,13 @@
     <div class="gallery-container">
       <div class="tag-row">
         <span class="tag tag--lime" data-i18n="gallery.tag.primary">ALL OSCILLATOR TYPES</span>
-        <span class="tag tag--dim" data-i18n="gallery.tag.sub">全振動型一覧</span>
+        <span class="tag tag--dim" data-i18n="gallery.tag.sub">全恋愛タイプ一覧</span>
       </div>
       <h2 class="gallery-title" data-i18n="gallery.title">THE 8 TYPES</h2>
       <p class="gallery-intro" data-i18n="gallery.intro">
-        The Strogatz Love Dynamics model classifies individuals into 8 oscillator types
-        based on three fundamental axes of romantic wave mechanics.
+        The Strogatz Love Dynamics model classifies each person into 8 love types
+        based on three fundamental axes of romantic energy — how you resonate, couple,
+        and phase with others.
       </p>
       <div class="axes-legend">
         <div class="axis-chip">
