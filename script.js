@@ -18,14 +18,14 @@ const I18N = {
     'tag.loveDynamics.primary': 'LOVE DYNAMICS',
     'tag.loveDynamics.sub': '恋愛力学',
     'tag.personality.primary': 'PERSONALITY ANALYSIS',
-    'tag.personality.sub': '性格振動分析',
+    'tag.personality.sub': '性格共鳴分析',
     'tag.version': 'v3.7.2',
     'hero.title.line1': 'STROGATZ',
     'hero.title.line2': 'ORACLE',
-    'hero.kanji': '恋愛振動占い',
+    'hero.kanji': '恋愛力学占い',
     'hero.spiral.label': 'LOVE DYNAMICS PHASE PORTRAIT',
     'hero.spiral.sub': '恋愛力学位相図 // STROGATZ MODEL',
-    'hero.desc': 'Based on Dr. Steven Strogatz\'s coupled oscillator theory, discover your <strong>Love Oscillation Type</strong> and unlock the mathematical secrets of romantic compatibility.',
+    'hero.desc': 'Based on Dr. Steven Strogatz\'s coupled love dynamics theory, discover your <strong>Love Type</strong> and unlock the mathematical secrets of romantic compatibility \u2014 how two hearts converge, orbit, or spiral apart.',
     'hero.btn.begin.primary': 'BEGIN ANALYSIS',
     'hero.btn.begin.sub': '解析開始',
     'hero.btn.types.primary': 'VIEW ALL 8 TYPES',
@@ -69,9 +69,9 @@ const I18N = {
     'compat.btn.back': 'BACK TO RESULTS',
     'compat.btn.retake': 'RETAKE QUIZ',
     'gallery.tag.primary': 'ALL OSCILLATOR TYPES',
-    'gallery.tag.sub': '全振動型一覧',
+    'gallery.tag.sub': '全恋愛タイプ一覧',
     'gallery.title': 'THE 8 TYPES',
-    'gallery.intro': 'The Strogatz Love Dynamics model classifies individuals into 8 oscillator types based on three fundamental axes of romantic wave mechanics.',
+    'gallery.intro': 'The Strogatz Love Dynamics model classifies each person into 8 love types based on three fundamental axes of romantic energy \u2014 how you resonate, couple, and phase with others.',
     'gallery.axis.resonance.name': 'RESONANCE',
     'gallery.axis.resonance.desc': '<b>R</b>ESONANT / <b>D</b>AMPED',
     'gallery.axis.coupling.name': 'COUPLING',
@@ -108,20 +108,37 @@ const I18N = {
     'radar.empathy': 'EMPATHY',
     'radar.independence': 'INDEPENDENCE',
     'radar.speed': 'SPEED',
-    'radar.depth': 'DEPTH'
+    'radar.depth': 'DEPTH',
+    'tb.tag.primary': 'THREE LOVERS DYNAMICS',
+    'tb.tag.sub': '三人の恋愛力学',
+    'tb.title': 'THREE LOVERS',
+    'tb.intro': 'When three hearts become entangled, the mathematics of love transforms. A 3\u00d73 coupled system creates love dynamics impossible between two \u2014 shifting devotions, intertwined longing, and passions that spiral beyond control.',
+    'tb.presets.label': 'LOVE PATTERNS',
+    'tb.presets.sub': '恋のパターン集',
+    'tb.custom.label': 'CUSTOM LOVE TRIANGLE',
+    'tb.custom.sub': 'カスタム恋愛三角',
+    'tb.orbit.primary': '3D LOVE ORBIT',
+    'tb.orbit.sub': '三者の恋愛軌道',
+    'tb.orbit.trajectory': '\u2014 LOVE TRAJECTORY',
+    'tb.time.sub': '三者の恋の時系列',
+    'tb.pairwise.primary': 'PAIRWISE LOVE DYNAMICS',
+    'tb.pairwise.sub': '対の恋愛位相図',
+    'tb.conv.sub': '三者の愛の収束曲線',
+    'tb.btn.threebody': 'THREE LOVERS DYNAMICS',
+    'tb.btn.threebody.sub': '三人の恋愛力学'
   },
   ja: {
     'tag.loveDynamics.primary': '恋愛力学',
     'tag.loveDynamics.sub': 'LOVE DYNAMICS',
-    'tag.personality.primary': '性格振動分析',
+    'tag.personality.primary': '性格共鳴分析',
     'tag.personality.sub': 'PERSONALITY ANALYSIS',
     'tag.version': 'v3.7.2',
     'hero.title.line1': 'STROGATZ',
     'hero.title.line2': 'ORACLE',
-    'hero.kanji': '恋愛振動占い',
+    'hero.kanji': '恋愛力学占い',
     'hero.spiral.label': '恋愛力学位相図',
     'hero.spiral.sub': 'LOVE DYNAMICS PHASE PORTRAIT // STROGATZ MODEL',
-    'hero.desc': 'スティーヴン・ストロガッツ博士の結合振動子理論に基づき、あなたの<strong>恋愛振動型</strong>を解き明かし、恋の相性に潜む数学的秘密を紐解きます。',
+    'hero.desc': 'スティーヴン・ストロガッツ博士の恋愛力学理論に基づき、あなたの<strong>恋愛タイプ</strong>を解き明かし、ふたつの心が収束し、周回し、螺旋を描いて離れていく \u2014 恋の相性に潜む数学的秘密を紐解く。',
     'hero.btn.begin.primary': '解析を開始',
     'hero.btn.begin.sub': 'BEGIN ANALYSIS',
     'hero.btn.types.primary': '全8タイプを見る',
@@ -129,7 +146,7 @@ const I18N = {
     'quiz.tag.primary': '心理波動スキャン',
     'quiz.tag.sub': 'NEURAL SCAN',
     'quiz.back': '← もどる',
-    'results.tag.primary': '振動型判定完了',
+    'results.tag.primary': '恋愛タイプ判定完了',
     'results.tag.sub': 'TYPE IDENTIFIED',
     'results.strengthsLabel': '強み',
     'results.risksLabel': 'リスク',
@@ -164,10 +181,10 @@ const I18N = {
     'compat.conv.sub': 'LOVE CONVERGENCE — ♡までの距離の時間変化',
     'compat.btn.back': '結果に戻る',
     'compat.btn.retake': 'もう一度診断',
-    'gallery.tag.primary': '全振動型一覧',
+    'gallery.tag.primary': '全恋愛タイプ一覧',
     'gallery.tag.sub': 'ALL OSCILLATOR TYPES',
     'gallery.title': '全8タイプ',
-    'gallery.intro': 'ストロガッツ恋愛力学モデルは、恋愛波動力学の3つの基軸に基づき、あなたを8つの振動子タイプのいずれかに分類します。',
+    'gallery.intro': 'ストロガッツ恋愛力学モデルは、恋愛エネルギーの3つの基軸に基づき、あなたを8つの恋愛タイプに分類します。どう共鳴し、どう結びつき、どう響き合うかが決まる。',
     'gallery.axis.resonance.name': '共鳴',
     'gallery.axis.resonance.desc': '<b>R</b>共鳴型 / <b>D</b>減衰型',
     'gallery.axis.coupling.name': '結合',
@@ -204,7 +221,24 @@ const I18N = {
     'radar.empathy': '共感',
     'radar.independence': '独立',
     'radar.speed': '速さ',
-    'radar.depth': '深さ'
+    'radar.depth': '深さ',
+    'tb.tag.primary': '三人の恋愛力学',
+    'tb.tag.sub': 'THREE LOVERS DYNAMICS',
+    'tb.title': '三人の恋',
+    'tb.intro': '三つの心が絡み合うと、恋の数学は一変する。3\u00d73結合系は二人では不可能な恋愛力学を生む \u2014 移り変わる想い、絡み合う恋慕、そして制御を超える情熱の螺旋。',
+    'tb.presets.label': '恋のパターン集',
+    'tb.presets.sub': 'LOVE PATTERNS',
+    'tb.custom.label': 'カスタム恋愛三角',
+    'tb.custom.sub': 'CUSTOM LOVE TRIANGLE',
+    'tb.orbit.primary': '三者の恋愛軌道',
+    'tb.orbit.sub': '3D LOVE ORBIT',
+    'tb.orbit.trajectory': '\u2014 恋の軌跡',
+    'tb.time.sub': '三者の恋の時系列',
+    'tb.pairwise.primary': '対の恋愛位相図',
+    'tb.pairwise.sub': 'PAIRWISE LOVE DYNAMICS',
+    'tb.conv.sub': '三者の愛の収束曲線',
+    'tb.btn.threebody': '三人の恋愛力学',
+    'tb.btn.threebody.sub': 'THREE LOVERS DYNAMICS'
   }
 };
 
@@ -258,6 +292,14 @@ function reRenderForLang() {
     currentGalleryType = null; // force re-render
     drawGallerySpiral(gt);
   }
+  // Three-body section
+  if (document.getElementById('tb-preset-grid') && document.getElementById('tb-preset-grid').children.length > 0) {
+    renderTBPresets();
+    renderTBTypeGrids();
+  }
+  if (tbTypeA && tbTypeB && tbTypeC && window._tb3Analysis) {
+    renderTB3Text();
+  }
 }
 
 function setLang(l) {
@@ -281,7 +323,7 @@ const TYPES = {
     params: { a: 0.8, b: 0.5 },
     traits: { intensity: 0.95, stability: 0.2, empathy: 0.8, independence: 0.3, speed: 0.9, depth: 0.5 },
     description: 'You are a NOVA — the most explosive oscillator type. Your feelings self-amplify rapidly, spiraling ever further from equilibrium. Each emotional cycle grows larger than the last — passion that cannot be contained. Your eigenvalue is strongly positive (λ > 0), meaning deviations from the love point amplify exponentially. In the phase portrait, your trajectory spirals outward: not less love, but love too intense to settle.',
-    jaDescription: 'あなたはNOVA — 最も爆発的な振動型。感情は急速に自己増幅し、平衡から螺旋を描いてどこまでも遠ざかる。サイクルごとに波は大きくなる — 抑えきれない情熱。固有値は強く正（λ > 0）で、恋愛平衡点からの逸脱は指数関数的に拡大する。位相図では、あなたの軌跡は外へと螺旋を描く：愛が少ないのではなく、静まり返ることのできない激情。',
+    jaDescription: 'あなたはNOVA — 最も爆発的な恋愛タイプ。感情は急速に自己増幅し、平衡から螺旋を描いてどこまでも遠ざかる。サイクルごとに波は大きくなる — 抑えきれない情熱。固有値は強く正（λ > 0）で、恋愛平衡点からの逸脱は指数関数的に拡大する。位相図では、あなたの軌跡は外へと螺旋を描く：愛が少ないのではなく、静まり返ることのできない激情。',
     strengths: 'Passionate, magnetic, deeply present, emotionally generous',
     jaStrengths: '情熱的、磁力的、深く今に生きる、感情的に寛大',
     risks: 'Burnout, overwhelming partners, intensity addiction',
@@ -299,7 +341,7 @@ const TYPES = {
     params: { a: 0.6, b: 0.3 },
     traits: { intensity: 0.7, stability: 0.5, empathy: 0.85, independence: 0.3, speed: 0.3, depth: 0.95 },
     description: 'You are a PULSAR — a deep, rhythmic oscillator locked in eternal balance. Like a pulsar star emitting steady beams of energy, your love is a reliable signal that neither fades nor overwhelms. Your feelings orbit the love equilibrium in perfect rhythm — never fully settling, never losing control. Your bond is an endless heartbeat: constant, dependable, forever.',
-    jaDescription: 'あなたはPULSAR — 永遠の均衡に閉じ込められた深い律動振動子。安定した光線を放つパルサー星のように、あなたの愛は消えもせず圧倒もしない、信頼できる信号。感情は完璧なリズムで恋愛平衡点を周回する — 完全には落ち着かず、決して制御を失わない。あなたの絆は終わりなき鼓動：一定で、頼れて、永遠に。',
+    jaDescription: 'あなたはPULSAR — 永遠の均衡に閉じ込められた深い律動の恋人。安定した光線を放つパルサー星のように、あなたの愛は消えもせず圧倒もしない、信頼できる信号。感情は完璧なリズムで恋愛平衡点を周回する — 完全には落ち着かず、決して制御を失わない。あなたの絆は終わりなき鼓動：一定で、頼れて、永遠に。',
     strengths: 'Devoted, profound, emotionally rich, patient',
     jaStrengths: '献身的、深遠、感情的に豊か、忍耐強い',
     risks: 'Over-attachment, slow to recognize incompatibility, possessive depth',
@@ -389,7 +431,7 @@ const TYPES = {
     params: { a: -0.6, b: -0.5 },
     traits: { intensity: 0.4, stability: 0.5, empathy: 0.2, independence: 0.95, speed: 0.8, depth: 0.5 },
     description: 'You are a PHANTOM — the most elusive oscillator type. Your feelings cycle in a perpetual dance of retreat and return, orbiting the love equilibrium but never landing on it. Like a phantom particle that exists only in equations, you are felt more than seen. Your love operates in negative space — an eternal orbit of absence and presence that neither decays nor settles.',
-    jaDescription: 'あなたはPHANTOM — 最も捉えどころのない振動型。感情は撤退と帰還の永久の舞を続け、恋愛平衡点を周回するが決してそこに着地しない。方程式の中にしか存在しない幻の粒子のように、あなたは見られるよりも感じられる。あなたの愛は負の空間で動く — 減衰も収束もしない、不在と存在の永遠の軌道。',
+    jaDescription: 'あなたはPHANTOM — 最も捉えどころのない恋愛タイプ。感情は撤退と帰還の永久の舞を続け、恋愛平衡点を周回するが決してそこに着地しない。方程式の中にしか存在しない幻の粒子のように、あなたは見られるよりも感じられる。あなたの愛は負の空間で動く — 減衰も収束もしない、不在と存在の永遠の軌道。',
     strengths: 'Intriguing, self-sufficient, creates longing, emotionally self-aware',
     jaStrengths: '興味を引く、自己完結、憧れを生む、感情的に自覚的',
     risks: 'Emotional avoidance, partner frustration, isolation',
@@ -478,7 +520,7 @@ const QUESTIONS = [
     text: 'COUPLING SCAN β: When your partner is experiencing intense emotions...',
     jaText: '結合スキャン β：パートナーが激しい感情を抱いているとき…',
     options: [
-      { text: 'I absorb and mirror their state — we oscillate together', jaText: 'その状態を吸収し鏡映する — 共に振動する', value: 1 },
+      { text: 'I absorb and mirror their state — we oscillate together', jaText: 'その状態を吸収し鏡映する — 共に響き合う', value: 1 },
       { text: 'I naturally counterbalance — providing the opposite of what they project', jaText: '自然に対抗バランスを取る — 相手が投げるものと逆を返す', value: -1 }
     ]
   },
@@ -515,7 +557,7 @@ const QUESTIONS = [
     text: 'PHASE SCAN ω: Your emotional cycles are best described as...',
     jaText: '位相スキャン ω：あなたの感情サイクルを最もよく表すのは…',
     options: [
-      { text: 'High frequency — rapid oscillations, moods shift quickly and often', jaText: '高周波 — 急速な振動、気分が素早く頻繁に変わる', value: 1 },
+      { text: 'High frequency — rapid oscillations, moods shift quickly and often', jaText: '高周波 — 急速な鼓動、気分が素早く頻繁に変わる', value: 1 },
       { text: 'Low frequency — long wavelengths, emotional states persist for weeks', jaText: '低周波 — 長い波長、感情の状態が数週間続く', value: -1 }
     ]
   },
@@ -547,17 +589,17 @@ const ANALYSIS_LOGS = {
   ],
   ja: [
     '> ストロガッツ恋愛力学エンジン v3.7.2 を初期化中…',
-    '> 結合振動子フレームワークを読み込み中…',
-    '> 神経反応ベクトルを解析中…',
+    '> 恋愛共鳴フレームワークを読み込み中…',
+    '> 心理反応ベクトルを解析中…',
     '> 自己結合係数 α を算出中…',
     '> パートナー結合係数 β を算出中…',
     '> 位相速度 ω を分析中…',
     '> 特性方程式 det(M - λI) = 0 を求解中…',
     '> 固有値分解を実行中…',
-    '> 振動子型多様体へのマッピング中…',
+    '> 恋愛タイプ多様体へのマッピング中…',
     '> ストロガッツ相性マトリクスと照合中…',
     '> 位相図を生成中…',
-    '> 振動型判定完了。結果を描画中…'
+    '> 恋愛タイプ判定完了。結果を描画中…'
   ]
 };
 
@@ -601,7 +643,7 @@ const DYNAMICS_LABELS = {
     color: '#FF0D1A',
     emoji: '🔴',
     reading: 'Your dynamics explode away from equilibrium — real positive eigenvalues (λ > 0) drive emotional deviation in one direction without oscillation. This is not simply more love — it is feelings accelerating past all balance. Nuclear fusion-level intensity: once initiated, the reaction is unstoppable. The most overwhelming and transformative pairing.',
-    jaReading: 'あなた方の力学は均衡から爆発的に遠ざかる — 実の正固有値（λ > 0）が振動なしに感情の逸脱を一方向へ駆動する。単に愛が増えるのではなく、あらゆる均衡を超えて加速する感情。核融合級の激しさ：一度点火すれば反応は止められない。最も圧倒的で変革的なペアリング。'
+    jaReading: 'あなた方の力学は均衡から爆発的に遠ざかる — 実の正固有値（λ > 0）が揺らぎなしに感情の逸脱を一方向へ駆動する。単に愛が増えるのではなく、あらゆる均衡を超えて加速する感情。核融合級の激しさ：一度点火すれば反応は止められない。最も圧倒的で変革的なペアリング。'
   },
   saddle: {
     name: 'QUANTUM TUNNEL',
@@ -2100,6 +2142,599 @@ function renderTypesGallery() {
 
   // Draw initial spiral for the first type (only if no type is already selected)
   if (!currentGalleryType) drawGallerySpiral('NOVA');
+}
+
+// ===== THREE-BODY LOVE DYNAMICS =====
+
+const DYNAMICS_3BODY = {
+  stable_trinity: {
+    name: 'HARMONIOUS LOVE', jaName: '調和の愛', color: '#C0FC04', emoji: '\ud83d\udfe2',
+    reading: 'All three hearts converge to a shared love equilibrium \u2014 the rarest and most beautiful outcome. Every flutter of jealousy, every surge of longing decays gently back toward mutual devotion. Three lovers who find peace together, settling into a stable, tender balance where everyone is cherished. This is love that heals itself.',
+    jaReading: '三つの心が共有する愛の平衡点へと収束する \u2014 最も稀有で美しい結末。嫉妬のざわめきも、恋しさの高まりも、すべて穏やかに相互の愛へと戻っていく。共に安らぎを見つける三人の恋人たち \u2014 誰もが愛される、安定した優しい均衡に落ち着く。これは自らを癒す愛。'
+  },
+  spiral_trinity: {
+    name: 'SPIRALING DEVOTION', jaName: '螺旋の献身', color: '#3601FB', emoji: '\ud83d\udfe3',
+    reading: 'Three lovers oscillate as their feelings converge \u2014 devotion shifts and swirls between them, but each cycle draws them closer to shared love. Like a waltz for three, the rhythm of push and pull gradually finds its center. The love triangle that dances its way to tenderness.',
+    jaReading: '三人の恋人が収束しながら感情を揺らす \u2014 献身が三者の間で移り渦巻くが、サイクルごとに共有の愛へと近づいていく。三人のワルツのように、押し引きのリズムが徐々にその中心を見出す。優しさへ向かって踊る恋の三角形。'
+  },
+  eternal_carousel: {
+    name: 'ETERNAL LOVE DANCE', jaName: '永遠の恋の舞', color: '#01FFFF', emoji: '\ud83d\udfe2',
+    reading: 'A perpetual dance of shifting affections \u2014 love circulates endlessly among three hearts without fading or overwhelming. One lover draws closer while another drifts, then the tide turns. The triangle breathes with love that never settles but never breaks \u2014 an eternal carousel of devotion.',
+    jaReading: '移ろう愛情の永遠の舞 \u2014 愛は三つの心の間を絶え間なく巡り、色褪せもせず圧倒もしない。一人が近づくと別の一人が離れ、やがて潮は変わる。三角関係は愛とともに呼吸する \u2014 落ち着くことも壊れることもない、献身の永遠の回転木馬。'
+  },
+  love_cyclone: {
+    name: 'LOVE CYCLONE', jaName: '恋の大渦', color: '#FF5500', emoji: '\ud83d\udfe0',
+    reading: 'Love spirals outward with growing intensity \u2014 each lover\u2019s passion amplifies the others in an escalating dance. Devotion shifts with increasing fervor, pulling all three into a widening gyre of desire. Intoxicating and overwhelming \u2014 a love too fierce to contain.',
+    jaReading: '愛が激しさを増しながら外へ螺旋を描く \u2014 各恋人の情熱が他を増幅し、加速する舞に。献身は熱を増しながら移り変わり、三人を欲望の渦へと引き込む。陶酔と圧倒 \u2014 抑えきれないほど激しい恋。'
+  },
+  triple_supernova: {
+    name: 'SUPERNOVA OF LOVE', jaName: '愛の超新星', color: '#FF0D1A', emoji: '\ud83d\udd34',
+    reading: 'Three hearts ignite each other beyond all equilibrium \u2014 love explodes in every direction at once. Each lover\u2019s passion feeds the others in a chain reaction of desire. The most intense configuration: three souls burning so bright they cannot hold their shape. Devastating, transformative, unforgettable.',
+    jaReading: '三つの心が互いを点火し、あらゆる均衡を超える \u2014 愛がすべての方向に同時に爆発する。各恋人の情熱が他を養い、欲望の連鎖反応を起こす。最も激しい配置：形を保てないほど眩しく燃える三つの魂。壊滅的で、変革的で、忘れられない。'
+  },
+  love_triangle: {
+    name: 'FATEFUL TRIANGLE', jaName: '運命の三角', color: '#EA027E', emoji: '\ud83d\udd3a',
+    reading: 'A love triangle balanced on a knife-edge \u2014 along one axis, two lovers are drawn into deep devotion; along another, they are pulled apart. Whether this triangle becomes a lasting bond or shatters depends entirely on how the three hearts first meet. The most delicate of love dynamics: destiny written in the initial spark.',
+    jaReading: '刃の上でバランスする恋の三角形 \u2014 ある軸では二人が深い献身へと引かれ、別の軸では引き離される。この三角関係が永続する絆になるか砕け散るかは、三つの心がどう出会うかに完全に依存する。最も繊細な恋愛力学：最初の火花に書かれた運命。'
+  }
+};
+
+// Each preset carries hand-tuned params so the 3×3 matrix eigenvalues
+// genuinely match the advertised dynamics. The `types` field selects
+// colors/icons; `params` overrides the type's natural α/β when present.
+const THREE_BODY_PRESETS = [
+  { id: 'stable_trinity', name: 'HARMONIOUS LOVE', jaName: '調和の愛', types: ['AURORA', 'PHOTON', 'SINGULARITY'], color: '#C0FC04', icon: '\u25b3',
+    desc: 'Three hearts settle into tender mutual devotion', jaDesc: '三つの心が優しい相互の愛に落ち着く',
+    params: { a1: -0.7, b1: 0.02, a2: -0.5, b2: 0.02, a3: -0.6, b3: 0.02 } },
+  { id: 'love_carousel', name: 'LOVE CAROUSEL', jaName: '愛の回転木馬', types: ['PHOTON', 'NEBULA', 'PHANTOM'], color: '#01FFFF', icon: '\u25cb',
+    desc: 'Affections circulate endlessly \u2014 love that never rests', jaDesc: '愛情が果てなく巡る \u2014 休むことのない恋',
+    params: { a1: 0.0, b1: 0.4, a2: 0.0, b2: -0.4, a3: 0.0, b3: 0.0 } },
+  { id: 'jealousy_cascade', name: 'FATEFUL TRIANGLE', jaName: '運命の三角', types: ['NOVA', 'QUASAR', 'AURORA'], color: '#EA027E', icon: '\u25bd',
+    desc: 'Love on a knife-edge \u2014 one path to devotion, another to heartbreak', jaDesc: '刃の上の恋 \u2014 一方は献身へ、他方は別れへ',
+    params: { a1: 0.15, b1: 0.1, a2: 0.15, b2: -0.2, a3: -0.5, b3: 0.08 } },
+  { id: 'triple_supernova', name: 'SUPERNOVA OF LOVE', jaName: '愛の超新星', types: ['NOVA', 'PULSAR', 'QUASAR'], color: '#FF0D1A', icon: '\u2726',
+    desc: 'Three passions ignite each other beyond all limits', jaDesc: '三つの情熱が互いを限界を超えて燃え上がらせる',
+    params: { a1: 1.2, b1: 0.02, a2: 0.9, b2: 0.02, a3: 1.0, b3: 0.02 } },
+  { id: 'love_cyclone', name: 'LOVE CYCLONE', jaName: '恋の大渦', types: ['NOVA', 'NEBULA', 'PULSAR'], color: '#FF5500', icon: '\u25c7',
+    desc: 'Spiraling desire \u2014 devotion amplifies with every turn', jaDesc: '螺旋する欲望 \u2014 巡るたび献身が増幅する',
+    params: { a1: 0.6, b1: 0.5, a2: 0.6, b2: -0.5, a3: 0.6, b3: 0.0 } },
+  { id: 'eternal_dance', name: 'WALTZ FOR THREE', jaName: '三人のワルツ', types: ['PHOTON', 'NEBULA', 'PHANTOM'], color: '#3601FB', icon: '\u221e',
+    desc: 'Love sways and spirals its way to tenderness', jaDesc: '恋が揺れながら螺旋を描き、優しさへ向かう',
+    params: { a1: -0.3, b1: 0.5, a2: -0.2, b2: -0.5, a3: -0.3, b3: 0.3 } }
+];
+
+let tbTypeA = null, tbTypeB = null, tbTypeC = null;
+let tb3AnimationId = null;
+let tb3OrbitFrame = 0;
+
+// ===== 3-BODY ODE SOLVER (RK4) =====
+// Soft saturation — asymptotically approaches ±limit instead of a hard wall
+function softClamp(v, limit) {
+  return limit * Math.tanh(v / limit);
+}
+
+function simulate3(p1, p2, p3, x0, y0, z0, dt, steps) {
+  const trajectory = [{ x: x0, y: y0, z: z0 }];
+  let x = x0, y = y0, z = z0;
+  for (let i = 0; i < steps; i++) {
+    const k1x = p1.a * x + p1.b * y + p1.b * z;
+    const k1y = p2.b * x + p2.a * y + p2.b * z;
+    const k1z = p3.b * x + p3.b * y + p3.a * z;
+    const mx1 = x + dt/2*k1x, my1 = y + dt/2*k1y, mz1 = z + dt/2*k1z;
+    const k2x = p1.a*mx1 + p1.b*my1 + p1.b*mz1;
+    const k2y = p2.b*mx1 + p2.a*my1 + p2.b*mz1;
+    const k2z = p3.b*mx1 + p3.b*my1 + p3.a*mz1;
+    const mx2 = x + dt/2*k2x, my2 = y + dt/2*k2y, mz2 = z + dt/2*k2z;
+    const k3x = p1.a*mx2 + p1.b*my2 + p1.b*mz2;
+    const k3y = p2.b*mx2 + p2.a*my2 + p2.b*mz2;
+    const k3z = p3.b*mx2 + p3.b*my2 + p3.a*mz2;
+    const mx3 = x + dt*k3x, my3 = y + dt*k3y, mz3 = z + dt*k3z;
+    const k4x = p1.a*mx3 + p1.b*my3 + p1.b*mz3;
+    const k4y = p2.b*mx3 + p2.a*my3 + p2.b*mz3;
+    const k4z = p3.b*mx3 + p3.b*my3 + p3.a*mz3;
+    x += dt/6*(k1x + 2*k2x + 2*k3x + k4x);
+    y += dt/6*(k1y + 2*k2y + 2*k3y + k4y);
+    z += dt/6*(k1z + 2*k2z + 2*k3z + k4z);
+    // No clamping — let unstable systems grow freely.
+    // Stop if values blow up to prevent NaN propagation.
+    if (!isFinite(x) || !isFinite(y) || !isFinite(z) || Math.abs(x) > 1e6 || Math.abs(y) > 1e6 || Math.abs(z) > 1e6) break;
+    trajectory.push({ x, y, z });
+  }
+  return trajectory;
+}
+
+// ===== CUBIC EQUATION SOLVER =====
+function solveCubic(coefB, coefC, coefD) {
+  const p = coefC - coefB * coefB / 3;
+  const q = 2 * coefB * coefB * coefB / 27 - coefB * coefC / 3 + coefD;
+  const shift = -coefB / 3;
+  if (Math.abs(p) < 1e-12 && Math.abs(q) < 1e-12) {
+    return [{ re: shift, im: 0 }, { re: shift, im: 0 }, { re: shift, im: 0 }];
+  }
+  const disc = -4 * p * p * p - 27 * q * q;
+  if (disc > 1e-8) {
+    const m = 2 * Math.sqrt(-p / 3);
+    const cosArg = Math.max(-1, Math.min(1, 3 * q / (p * m)));
+    const theta = Math.acos(cosArg) / 3;
+    return [0, 1, 2].map(k => ({ re: m * Math.cos(theta - 2 * Math.PI * k / 3) + shift, im: 0 }));
+  } else {
+    const h = q * q / 4 + p * p * p / 27;
+    const sqrtH = Math.sqrt(Math.max(0, h));
+    const u = Math.cbrt(-q / 2 + sqrtH);
+    const v = Math.cbrt(-q / 2 - sqrtH);
+    const realRoot = u + v + shift;
+    const rePart = -(u + v) / 2 + shift;
+    const imPart = Math.sqrt(3) / 2 * (u - v);
+    return [
+      { re: realRoot, im: 0 },
+      { re: rePart, im: Math.abs(imPart) > 0.001 ? imPart : 0 },
+      { re: rePart, im: Math.abs(imPart) > 0.001 ? -imPart : 0 }
+    ];
+  }
+}
+
+function eigenvalues3x3(a1, b1, a2, b2, a3, b3) {
+  const tr = a1 + a2 + a3;
+  const cofSum = (a2*a3 - b2*b3) + (a1*a3 - b1*b3) + (a1*a2 - b1*b2);
+  const det = a1*(a2*a3 - b2*b3) - b1*(b2*a3 - b2*b3) + b1*(b2*b3 - b3*a2);
+  return solveCubic(-tr, cofSum, -det);
+}
+
+function classify3Body(eigenvals) {
+  const maxRe = Math.max(...eigenvals.map(e => e.re));
+  const minRe = Math.min(...eigenvals.map(e => e.re));
+  const hasComplex = eigenvals.some(e => Math.abs(e.im) > 0.01);
+  const allNeg = maxRe < -0.03;
+  const allPos = minRe > 0.03;
+  const mixed = maxRe > 0.03 && minRe < -0.03;
+  const nearCenter = Math.abs(maxRe) < 0.1 && Math.abs(minRe) < 0.1;
+
+  if (nearCenter && hasComplex) return 'eternal_carousel';
+  if (allNeg && !hasComplex) return 'stable_trinity';
+  if (allNeg && hasComplex) return 'spiral_trinity';
+  if (mixed) return 'love_triangle';
+  if (allPos && !hasComplex) return 'triple_supernova';
+  if (allPos && hasComplex) return 'love_cyclone';
+  // Edge cases
+  if (hasComplex) return maxRe > 0 ? 'love_cyclone' : 'spiral_trinity';
+  return maxRe > 0 ? 'triple_supernova' : 'stable_trinity';
+}
+
+// ===== 3-BODY VISUALIZATION: 3D ORBIT (ROTATING) =====
+function draw3DOrbit(canvas, trajectories, colors, selectedIdx, dynColor) {
+  if (tb3AnimationId) cancelAnimationFrame(tb3AnimationId);
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const cx = w / 2, cy = h / 2;
+
+  // Auto-scale to data range
+  let dataMax = 1;
+  for (const traj of trajectories) for (const pt of traj) dataMax = Math.max(dataMax, Math.abs(pt.x), Math.abs(pt.y), Math.abs(pt.z));
+  const viewRange = Math.ceil(dataMax * 1.15);
+  const scale = w / (viewRange * 3.2);
+
+  const selLen = trajectories[selectedIdx].length;
+  const trailLen = Math.floor(selLen * 0.3);
+
+  function drawFrame() {
+    // Slow auto-rotation (persistent across trajectory switches)
+    const angle = tb3OrbitFrame * 0.004;
+    const cosA = Math.cos(angle), sinA = Math.sin(angle);
+    const tilt = 0.55; // fixed elevation
+    const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+
+    function project(x, y, z) {
+      // Rotate around Y axis, then tilt
+      const rx = x * cosA + z * sinA;
+      const rz = -x * sinA + z * cosA;
+      const ry = y;
+      return {
+        px: cx + rx * scale,
+        py: cy - (ry * cosT - rz * sinT) * scale,
+        depth: ry * sinT + rz * cosT
+      };
+    }
+
+    ctx.fillStyle = '#050508';
+    ctx.fillRect(0, 0, w, h);
+
+    // Axes
+    const axisLen = viewRange * 0.7;
+    const axesDef = [
+      { dx: axisLen, dy: 0, dz: 0, label: 'A', color: colors[0] || '#C0FC04' },
+      { dx: 0, dy: axisLen, dz: 0, label: 'B', color: colors[1] || '#EA027E' },
+      { dx: 0, dy: 0, dz: axisLen, label: 'C', color: colors[2] || '#3601FB' }
+    ];
+    const origin = project(0, 0, 0);
+    for (const ax of axesDef) {
+      const neg = project(-ax.dx * 0.3, -ax.dy * 0.3, -ax.dz * 0.3);
+      ctx.strokeStyle = ax.color + '12'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(origin.px, origin.py); ctx.lineTo(neg.px, neg.py); ctx.stroke();
+      const pos = project(ax.dx, ax.dy, ax.dz);
+      ctx.strokeStyle = ax.color + '35'; ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath(); ctx.moveTo(origin.px, origin.py); ctx.lineTo(pos.px, pos.py); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = '800 11px "Barlow Condensed", sans-serif';
+      ctx.fillStyle = ax.color + 'aa'; ctx.textAlign = 'center';
+      const lp = project(ax.dx * 1.12, ax.dy * 1.12, ax.dz * 1.12);
+      ctx.fillText(ax.label, lp.px, lp.py - 4);
+    }
+
+    // Equilibrium glow
+    ctx.fillStyle = (dynColor || '#C0FC04') + '25';
+    ctx.beginPath(); ctx.arc(origin.px, origin.py, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(origin.px, origin.py, 2, 0, Math.PI * 2); ctx.fill();
+
+    const drawDone = tb3OrbitFrame >= selLen;
+    const drawUpTo = drawDone ? selLen - 1 : tb3OrbitFrame;
+
+    // Layer 1: All non-selected trajectories — always fully drawn
+    for (let ti = 0; ti < trajectories.length; ti++) {
+      if (ti === selectedIdx) continue;
+      const traj = trajectories[ti];
+      const segEnd = traj.length - 1;
+      const tColor = colors[ti % 3];
+      ctx.beginPath();
+      for (let i = 0; i <= segEnd; i++) {
+        const pt = project(traj[i].x, traj[i].y, traj[i].z);
+        if (i === 0) ctx.moveTo(pt.px, pt.py); else ctx.lineTo(pt.px, pt.py);
+      }
+      ctx.strokeStyle = tColor + '35'; ctx.lineWidth = 1; ctx.stroke();
+      if (segEnd > 0) {
+        const pt = project(traj[segEnd].x, traj[segEnd].y, traj[segEnd].z);
+        ctx.fillStyle = tColor + '50'; ctx.beginPath(); ctx.arc(pt.px, pt.py, 2, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+
+    // Layer 2: Selected trajectory — bright draw-in, then static
+    {
+      const traj = trajectories[selectedIdx];
+      const baseCol = dynColor || '#C0FC04';
+      const segEnd = Math.min(drawUpTo, traj.length - 1);
+      ctx.beginPath();
+      for (let i = 0; i <= segEnd; i++) {
+        const pt = project(traj[i].x, traj[i].y, traj[i].z);
+        if (i === 0) ctx.moveTo(pt.px, pt.py); else ctx.lineTo(pt.px, pt.py);
+      }
+      ctx.strokeStyle = baseCol; ctx.lineWidth = 2.5; ctx.stroke();
+      // Start marker
+      const sp = project(traj[0].x, traj[0].y, traj[0].z);
+      ctx.strokeStyle = '#ffffff40'; ctx.lineWidth = 1; ctx.strokeRect(sp.px - 4, sp.py - 4, 8, 8);
+      // Head dot
+      if (segEnd > 0) {
+        const pt = project(traj[segEnd].x, traj[segEnd].y, traj[segEnd].z);
+        ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(pt.px, pt.py, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = baseCol; ctx.beginPath(); ctx.arc(pt.px, pt.py, 3.5, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+
+    // Label
+    ctx.font = '800 11px "Barlow Condensed", sans-serif';
+    ctx.fillStyle = dynColor || '#C0FC04'; ctx.textAlign = 'left';
+    ctx.fillText(t('tb.orbit.trajectory') + ' ' + (selectedIdx + 1), 12, 18);
+
+    tb3OrbitFrame += 2;
+    tb3AnimationId = requestAnimationFrame(drawFrame);
+  }
+  drawFrame();
+}
+
+// ===== 3-BODY TIME SERIES =====
+function draw3BodyTimeSeries(canvas, traj, dt, colors) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const padL = 44, padR = 10, padT = 24, padB = 30;
+  const plotW = w - padL - padR, plotH = h - padT - padB;
+  ctx.fillStyle = '#07070e'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#0a0a12'; ctx.fillRect(padL, padT, plotW, plotH);
+  ctx.strokeStyle = 'rgba(42, 42, 58, 0.6)'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) { const y = padT + plotH * i / 5; ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke(); }
+  let maxVal = 1;
+  for (const pt of traj) maxVal = Math.max(maxVal, Math.abs(pt.x), Math.abs(pt.y), Math.abs(pt.z));
+  maxVal = Math.ceil(maxVal * 1.2);
+  const zeroY = padT + plotH / 2;
+  ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(192, 252, 4, 0.3)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(padL, zeroY); ctx.lineTo(w - padR, zeroY); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '600 7px "Barlow Condensed", sans-serif'; ctx.fillStyle = 'rgba(192, 252, 4, 0.4)'; ctx.textAlign = 'left';
+  ctx.fillText(t('canvas.conv.eqShort'), padL + 2, zeroY - 4);
+  const keys = ['x', 'y', 'z'], labels = ['A', 'B', 'C'];
+  for (let k = 0; k < 3; k++) {
+    ctx.beginPath();
+    for (let i = 0; i < traj.length; i++) {
+      const px = padL + (i / (traj.length - 1)) * plotW;
+      const py = zeroY - (traj[i][keys[k]] / maxVal) * (plotH / 2);
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = colors[k]; ctx.lineWidth = 2.5; ctx.stroke();
+  }
+  ctx.font = '800 11px "Barlow Condensed", sans-serif'; let lx = padL + 6;
+  for (let k = 0; k < 3; k++) { ctx.fillStyle = colors[k]; ctx.textAlign = 'left'; const lbl = '\u2014 ' + labels[k]; ctx.fillText(lbl, lx, padT + 14); lx += ctx.measureText(lbl).width + 16; }
+  ctx.font = '400 8px "Share Tech Mono", monospace'; ctx.fillStyle = '#44445a'; ctx.textAlign = 'right';
+  ctx.fillText('IC: (' + traj[0].x.toFixed(1) + ', ' + traj[0].y.toFixed(1) + ', ' + traj[0].z.toFixed(1) + ')', w - padR, padT + 14);
+  ctx.font = '800 10px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#44445a'; ctx.textAlign = 'center';
+  ctx.fillText(t('canvas.ts.time'), padL + plotW / 2, h - 6);
+  ctx.save(); ctx.translate(14, padT + plotH / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(t('canvas.ts.feeling'), 0, 0); ctx.restore();
+  ctx.textAlign = 'right'; ctx.font = '600 9px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#44445a';
+  ctx.fillText('+' + maxVal, padL - 5, padT + 10); ctx.fillText('0', padL - 5, zeroY + 3); ctx.fillText('-' + maxVal, padL - 5, padT + plotH + 2);
+}
+
+// ===== PAIRWISE PHASE PORTRAITS =====
+function drawPairwisePortraits(canvas, traj, colors, selectedIdx, trajectories, dynColor) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const panelW = w / 3;
+  const pad = 28; // inner padding for each panel
+  ctx.fillStyle = '#050508'; ctx.fillRect(0, 0, w, h);
+  const pairs = [
+    { a: 'x', b: 'y', labelA: 'A', labelB: 'B', cA: colors[0], cB: colors[1] },
+    { a: 'y', b: 'z', labelA: 'B', labelB: 'C', cA: colors[1], cB: colors[2] },
+    { a: 'x', b: 'z', labelA: 'A', labelB: 'C', cA: colors[0], cB: colors[2] }
+  ];
+  for (let p = 0; p < 3; p++) {
+    const ox = p * panelW, pair = pairs[p];
+    let pairMax = 1;
+    for (const tr of trajectories) for (const pt of tr) pairMax = Math.max(pairMax, Math.abs(pt[pair.a]), Math.abs(pt[pair.b]));
+    const plotSize = Math.min(panelW, h) - pad * 2;
+    const pcx = ox + panelW / 2, pcy = h / 2;
+    const sc = (plotSize / 2) / (pairMax * 1.1);
+
+    // Panel divider
+    if (p > 0) { ctx.strokeStyle = 'rgba(42,42,58,0.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(ox, 0); ctx.lineTo(ox, h); ctx.stroke(); }
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(42,42,58,0.25)'; ctx.lineWidth = 0.5;
+    for (let g = -2; g <= 2; g++) {
+      if (g === 0) continue;
+      const gv = (pairMax * g / 2);
+      const gy = pcy - gv * sc;
+      ctx.beginPath(); ctx.moveTo(ox + pad, gy); ctx.lineTo(ox + panelW - pad, gy); ctx.stroke();
+      const gx = pcx + gv * sc;
+      ctx.beginPath(); ctx.moveTo(gx, pad); ctx.lineTo(gx, h - pad); ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = 'rgba(42,42,58,0.5)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(ox + pad, pcy); ctx.lineTo(ox + panelW - pad, pcy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pcx, pad); ctx.lineTo(pcx, h - pad); ctx.stroke();
+
+    // Equilibrium glow
+    ctx.fillStyle = (dynColor || '#C0FC04') + '30'; ctx.beginPath(); ctx.arc(pcx, pcy, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(pcx, pcy, 2.5, 0, Math.PI * 2); ctx.fill();
+
+    // Non-selected trajectories — dim with type colors
+    for (let ti = 0; ti < trajectories.length; ti++) {
+      if (ti === selectedIdx) continue;
+      const tr = trajectories[ti];
+      const tColor = colors[ti % 3];
+      ctx.beginPath();
+      for (let i = 0; i < tr.length; i++) {
+        const sx = pcx + tr[i][pair.a] * sc, sy = pcy - tr[i][pair.b] * sc;
+        if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = tColor + '28'; ctx.lineWidth = 1; ctx.stroke();
+    }
+
+    // Selected trajectory — bright, thick
+    {
+      const tr = trajectories[selectedIdx];
+      const baseCol = dynColor || '#C0FC04';
+      ctx.beginPath();
+      for (let i = 0; i < tr.length; i++) {
+        const sx = pcx + tr[i][pair.a] * sc, sy = pcy - tr[i][pair.b] * sc;
+        if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = baseCol; ctx.lineWidth = 2.5; ctx.stroke();
+      // Start marker
+      const sp = { sx: pcx + tr[0][pair.a] * sc, sy: pcy - tr[0][pair.b] * sc };
+      ctx.strokeStyle = '#ffffff50'; ctx.lineWidth = 1; ctx.strokeRect(sp.sx - 4, sp.sy - 4, 8, 8);
+      // End dot
+      const last = tr[tr.length - 1];
+      const ep = { sx: pcx + last[pair.a] * sc, sy: pcy - last[pair.b] * sc };
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(ep.sx, ep.sy, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = baseCol; ctx.beginPath(); ctx.arc(ep.sx, ep.sy, 2.5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // Axis labels — larger, positioned at edges
+    ctx.font = '800 14px "Barlow Condensed", sans-serif';
+    ctx.fillStyle = pair.cA; ctx.textAlign = 'right';
+    ctx.fillText(pair.labelA + ' \u2192', ox + panelW - pad, pcy + 18);
+    ctx.fillStyle = pair.cB; ctx.textAlign = 'left';
+    ctx.fillText('\u2191 ' + pair.labelB, pcx + 8, pad + 6);
+
+    // Panel title
+    ctx.font = '800 13px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#ffffff90'; ctx.textAlign = 'center';
+    ctx.fillText(pair.labelA + ' \u2013 ' + pair.labelB, pcx, h - 8);
+  }
+}
+
+// ===== 3-BODY CONVERGENCE CURVE =====
+function draw3BodyConvergence(canvas, trajectories, dt, selectedIdx, dynColor, accentColor) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  const padL = 50, padR = 16, padT = 20, padB = 28;
+  const plotW = w - padL - padR, plotH = h - padT - padB;
+  ctx.fillStyle = '#07070e'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#0a0a12'; ctx.fillRect(padL, padT, plotW, plotH);
+  const distances = trajectories.map(traj => traj.map(pt => Math.sqrt(pt.x*pt.x + pt.y*pt.y + pt.z*pt.z)));
+  let maxDist = 1;
+  for (const d of distances) for (const v of d) maxDist = Math.max(maxDist, v);
+  maxDist = Math.ceil(maxDist * 1.1);
+  const maxLen = trajectories[0].length;
+  ctx.strokeStyle = 'rgba(42, 42, 58, 0.5)'; ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 4; i++) { const y = padT + plotH * i / 4; ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke(); }
+  const zeroY = padT + plotH;
+  ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(192, 252, 4, 0.35)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(padL, zeroY); ctx.lineTo(w - padR, zeroY); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = '600 8px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#C0FC04'; ctx.textAlign = 'left';
+  ctx.fillText(t('canvas.conv.equilibrium'), padL + 4, zeroY - 4);
+  for (let ti = 0; ti < distances.length; ti++) {
+    if (ti === selectedIdx) continue;
+    const d = distances[ti]; ctx.beginPath();
+    for (let i = 0; i < d.length; i++) { const px = padL + (i / (maxLen - 1)) * plotW; const py = padT + plotH - (d[i] / maxDist) * plotH; if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+    ctx.strokeStyle = (dynColor || '#C0FC04') + '25'; ctx.lineWidth = 1; ctx.stroke();
+  }
+  { const d = distances[selectedIdx]; ctx.beginPath();
+    for (let i = 0; i < d.length; i++) { const px = padL + (i / (maxLen - 1)) * plotW; const py = padT + plotH - (d[i] / maxDist) * plotH; if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+    ctx.strokeStyle = accentColor || '#C0FC04'; ctx.lineWidth = 3; ctx.stroke();
+    const lastD = d[d.length - 1]; ctx.fillStyle = accentColor || '#C0FC04'; ctx.fillRect(padL + plotW - 3, padT + plotH - (lastD / maxDist) * plotH - 3, 6, 6); }
+  ctx.font = '800 11px "Barlow Condensed", sans-serif'; ctx.fillStyle = accentColor || '#C0FC04'; ctx.textAlign = 'left';
+  ctx.fillText(t('canvas.conv.trajectory') + ' ' + (selectedIdx + 1), padL + 4, padT + 13);
+  const ic = trajectories[selectedIdx][0];
+  ctx.font = '400 8px "Share Tech Mono", monospace'; ctx.fillStyle = '#44445a'; ctx.textAlign = 'right';
+  ctx.fillText('IC: (' + ic.x.toFixed(1) + ', ' + ic.y.toFixed(1) + ', ' + ic.z.toFixed(1) + ')', w - padR, padT + 13);
+  ctx.font = '800 10px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#44445a'; ctx.textAlign = 'center';
+  ctx.fillText(t('canvas.ts.time'), padL + plotW / 2, h - 5);
+  ctx.save(); ctx.translate(14, padT + plotH / 2); ctx.rotate(-Math.PI / 2); ctx.fillText(t('canvas.conv.yAxis'), 0, 0); ctx.restore();
+  ctx.textAlign = 'right'; ctx.font = '600 9px "Barlow Condensed", sans-serif'; ctx.fillStyle = '#44445a';
+  ctx.fillText(maxDist.toFixed(1), padL - 5, padT + 8); ctx.fillText('0', padL - 5, zeroY + 4);
+}
+
+// ===== 3-BODY NAVIGATION & INTERACTION =====
+function showThreeBody() {
+  showSection('three-body');
+  renderTBPresets();
+  renderTBTypeGrids();
+  if (userType && !tbTypeA) selectTBType('a', userType.name);
+}
+
+function renderTBPresets() {
+  const grid = document.getElementById('tb-preset-grid');
+  grid.innerHTML = THREE_BODY_PRESETS.map(p =>
+    '<button class="tb-preset-btn" data-preset="' + p.id + '" onclick="loadTBPreset(\'' + p.id + '\')" style="--preset-color:' + p.color + '">' +
+    '<span class="tb-preset-icon" style="color:' + p.color + '">' + p.icon + '</span>' +
+    '<span class="tb-preset-name" style="color:' + p.color + '">' + L(p.name, p.jaName) + '</span>' +
+    '<span class="tb-preset-types">' + p.types.join(' \u00d7 ') + '</span>' +
+    '<span class="tb-preset-desc">' + L(p.desc, p.jaDesc) + '</span>' +
+    '</button>'
+  ).join('');
+}
+
+function renderTBTypeGrids() {
+  for (const slot of ['a', 'b', 'c']) {
+    const grid = document.getElementById('tb-grid-' + slot);
+    const current = slot === 'a' ? tbTypeA : slot === 'b' ? tbTypeB : tbTypeC;
+    grid.innerHTML = Object.values(TYPES).map(tp =>
+      '<button class="type-grid-btn' + (current && current.name === tp.name ? ' selected' : '') + '" data-type="' + tp.name + '" onclick="selectTBType(\'' + slot + '\',\'' + tp.name + '\')">' + tp.icon + '<br>' + tp.name + '</button>'
+    ).join('');
+  }
+}
+
+function selectTBType(slot, typeName) {
+  const type = TYPES[typeName]; if (!type) return;
+  if (slot === 'a') tbTypeA = type; else if (slot === 'b') tbTypeB = type; else tbTypeC = type;
+  const badge = document.getElementById('tb-badge-' + slot);
+  badge.textContent = type.icon + ' ' + type.name;
+  badge.style.borderColor = type.color; badge.style.color = type.color;
+  document.querySelectorAll('#tb-grid-' + slot + ' .type-grid-btn').forEach(b => b.classList.toggle('selected', b.dataset.type === typeName));
+  // Clear preset override — manual picks use the type's native params
+  window._tbOverrideParams = null;
+  document.querySelectorAll('.tb-preset-btn').forEach(b => b.classList.remove('active'));
+  if (tbTypeA && tbTypeB && tbTypeC) runThreeBodyAnalysis();
+}
+
+function loadTBPreset(presetId) {
+  const preset = THREE_BODY_PRESETS.find(p => p.id === presetId); if (!preset) return;
+  document.querySelectorAll('.tb-preset-btn').forEach(b => b.classList.toggle('active', b.dataset.preset === presetId));
+  // Set type visuals
+  tbTypeA = TYPES[preset.types[0]]; tbTypeB = TYPES[preset.types[1]]; tbTypeC = TYPES[preset.types[2]];
+  ['a', 'b', 'c'].forEach((slot, i) => {
+    const tp = [tbTypeA, tbTypeB, tbTypeC][i];
+    const badge = document.getElementById('tb-badge-' + slot);
+    badge.textContent = tp.icon + ' ' + tp.name;
+    badge.style.borderColor = tp.color; badge.style.color = tp.color;
+    document.querySelectorAll('#tb-grid-' + slot + ' .type-grid-btn').forEach(b => b.classList.toggle('selected', b.dataset.type === tp.name));
+  });
+  // Use preset's hand-tuned params for the actual simulation
+  window._tbOverrideParams = preset.params || null;
+  runThreeBodyAnalysis();
+}
+
+function runThreeBodyAnalysis() {
+  if (!tbTypeA || !tbTypeB || !tbTypeC) return;
+  tb3OrbitFrame = 0; // reset rotation for new analysis
+  const resultsEl = document.getElementById('tb-results');
+  resultsEl.style.display = 'block';
+  const ov = window._tbOverrideParams;
+  const a1 = ov ? ov.a1 : tbTypeA.params.a, b1 = ov ? ov.b1 : tbTypeA.params.b;
+  const a2 = ov ? ov.a2 : tbTypeB.params.a, b2 = ov ? ov.b2 : tbTypeB.params.b;
+  const a3 = ov ? ov.a3 : tbTypeC.params.a, b3 = ov ? ov.b3 : tbTypeC.params.b;
+  const eigenvals = eigenvalues3x3(a1, b1, a2, b2, a3, b3);
+  const classification = classify3Body(eigenvals);
+  const dyn = DYNAMICS_3BODY[classification];
+  const eigenStr = eigenvals.map(e => Math.abs(e.im) < 0.001 ? ('\u03bb = ' + e.re.toFixed(3)) : ('\u03bb = ' + e.re.toFixed(3) + (e.im > 0 ? '+' : '') + e.im.toFixed(3) + 'i')).join('  ');
+  let score;
+  switch (classification) {
+    case 'stable_trinity': score = 95; break; case 'spiral_trinity': score = 88; break;
+    case 'eternal_carousel': score = 75; break; case 'love_triangle': score = 62; break;
+    case 'love_cyclone': score = 50; break; case 'triple_supernova': score = 35; break; default: score = 50;
+  }
+  score = Math.max(10, Math.min(99, Math.round(score + (Math.random() * 8 - 4))));
+  const tr3 = a1 + a2 + a3;
+  const det3 = a1*(a2*a3 - b2*b3) - b1*(b2*a3 - b2*b3) + b1*(b2*b3 - b3*a2);
+  window._tb3Analysis = { a1, b1, a2, b2, a3, b3, tr3, det3, eigenvals, eigenStr, classification, score };
+  renderTB3Text();
+  const sp1 = { a: a1, b: b1 }, sp2 = { a: a2, b: b2 }, sp3 = { a: a3, b: b3 };
+  const ics = [
+    { x: 4, y: 1, z: -2 }, { x: -3, y: 4, z: 1 }, { x: 1, y: -2, z: 4 },
+    { x: -4, y: -1, z: 2 }, { x: 3, y: -4, z: -1 }, { x: -1, y: 2, z: -4 },
+    { x: 0, y: 0, z: 4 }, { x: 4, y: 0, z: 0 }, { x: 0, y: 4, z: 0 }
+  ];
+  const dt = 0.03, steps = 9000;
+  const trajectories = ics.map(ic => simulate3(sp1, sp2, sp3, ic.x, ic.y, ic.z, dt, steps));
+  const colors = [tbTypeA.color, tbTypeB.color, tbTypeC.color];
+  window._tb3State = { trajectories, ics, dt, sp1, sp2, sp3, dynColor: dyn.color, colors, selectedIdx: 0 };
+  const btnContainer = document.getElementById('tb-traj-buttons');
+  btnContainer.innerHTML = ics.map((ic, i) => '<button class="traj-btn' + (i === 0 ? ' active' : '') + '" onclick="selectTBTrajectory(' + i + ')">' + (i + 1) + '</button>').join('');
+  selectTBTrajectory(0);
+  resultsEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+}
+
+function renderTB3Text() {
+  const A = window._tb3Analysis; if (!A) return;
+  const dyn = DYNAMICS_3BODY[A.classification];
+  const dynName = L(dyn.name, dyn.jaName);
+  const dynReading = L(dyn.reading, dyn.jaReading);
+  const classEl = document.getElementById('tb-class');
+  if (classEl) {
+    const primary = currentLang === 'ja' ? dyn.jaName : dyn.name;
+    const secondary = currentLang === 'ja' ? dyn.name : dyn.jaName;
+    classEl.innerHTML = '<span style="color:' + dyn.color + '">' + dyn.emoji + ' ' + primary + ' // ' + secondary + '</span>';
+  }
+  const scoreEl = document.getElementById('tb-score');
+  if (scoreEl) scoreEl.textContent = A.score;
+  const ring = document.getElementById('tb-score-ring-fill');
+  if (ring) {
+    ring.style.stroke = dyn.color; ring.style.filter = 'drop-shadow(0 0 6px ' + dyn.color + ')';
+    ring.style.transition = 'none'; ring.style.strokeDashoffset = '490';
+    void ring.offsetWidth;
+    ring.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1)';
+    setTimeout(function() { ring.style.strokeDashoffset = 440 * (1 - A.score / 100); }, 100);
+  }
+  const classLabel = currentLang === 'ja' ? '恋の力学' : 'LOVE DYNAMICS';
+  const eqEl = document.getElementById('tb-equation');
+  if (eqEl) eqEl.innerHTML =
+    '<div>3\u00d73 LOVE MATRIX M = [[' + A.a1 + ', ' + A.b1 + ', ' + A.b1 + '], [' + A.b2 + ', ' + A.a2 + ', ' + A.b2 + '], [' + A.b3 + ', ' + A.b3 + ', ' + A.a3 + ']]</div>' +
+    '<div>tr(M) = ' + A.tr3.toFixed(2) + ' &nbsp; det(M) = ' + A.det3.toFixed(3) + '</div>' +
+    '<div>' + A.eigenStr + '</div>' +
+    '<div>' + classLabel + ': <span style="color:' + dyn.color + '">' + dynName + '</span></div>';
+  const eigenEl = document.getElementById('tb-eigen');
+  if (eigenEl) { const label = currentLang === 'ja' ? '恋の固有値解析' : 'Love eigenvalue analysis';
+    eigenEl.innerHTML = '<span style="color:var(--text-dim)">' + label + ': ' + A.eigenStr + ' \u2192 ' + A.classification.replace(/_/g, ' ').toUpperCase() + '</span>'; }
+  const readingEl = document.getElementById('tb-reading');
+  if (readingEl) readingEl.innerHTML =
+    '<p style="color:' + dyn.color + ';font-weight:800;font-size:0.75rem;letter-spacing:0.15em;margin-bottom:0.5rem;">' + dynName + '</p><p>' + dynReading + '</p>';
+}
+
+function selectTBTrajectory(idx) {
+  const st = window._tb3State; if (!st) return;
+  st.selectedIdx = idx;
+  document.querySelectorAll('#tb-traj-buttons .traj-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+  draw3DOrbit(document.getElementById('tb-orbit-canvas'), st.trajectories, st.colors, idx, st.dynColor);
+  draw3BodyTimeSeries(document.getElementById('tb-time-canvas'), st.trajectories[idx], st.dt, st.colors);
+  drawPairwisePortraits(document.getElementById('tb-pairwise-canvas'), st.trajectories[idx], st.colors, idx, st.trajectories, st.dynColor);
+  draw3BodyConvergence(document.getElementById('tb-convergence-canvas'), st.trajectories, st.dt, idx, st.dynColor, st.colors[0]);
 }
 
 // ===== INIT =====
